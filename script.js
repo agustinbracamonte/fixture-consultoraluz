@@ -297,6 +297,7 @@
                 container.style.minWidth = 'max-content';
                 wrapper.style.justifyContent = 'flex-start';
                 // Adjust wrapper height to auto so it flows normally
+                wrapper.style.height = 'auto';
                 wrapper.style.minHeight = 'auto';
             } else {
                 container.style.minWidth = '1750px';
@@ -309,7 +310,7 @@
                 
                 // Adjust height of wrapper based on scaled container
                 const rect = container.getBoundingClientRect();
-                wrapper.style.minHeight = `${rect.height + 80}px`; // 80px for padding
+                wrapper.style.height = `${rect.height + 80}px`; // force wrapper to shrink to scaled height
             }
             drawSVGConnectorLines();
         }

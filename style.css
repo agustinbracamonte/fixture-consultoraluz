@@ -378,6 +378,7 @@
                 padding: 0 15px;
                 box-sizing: border-box;
                 scroll-snap-align: center;
+                justify-content: flex-start;
             }
             .column.center {
                 width: 100vw;
