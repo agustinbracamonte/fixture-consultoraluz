@@ -191,6 +191,14 @@
             margin: 10px 0;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
             position: relative;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .match-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(168, 127, 251, 0.15), 0 0 15px rgba(168, 127, 251, 0.05);
+            border-color: rgba(168, 127, 251, 0.3);
+            z-index: 10;
         }
 
         .match-card.final {
@@ -262,6 +270,11 @@
             background-size: 14px;
         }
 
+        select option {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+        }
+
         select.team-select {
             width: 100%;
             padding-right: 28px;
@@ -323,6 +336,53 @@
             0% { transform: translateY(0px); }
             50% { transform: translateY(-15px); }
             100% { transform: translateY(0px); }
+        }
+
+        /* --- Animaciones Premium --- */
+        .column {
+            opacity: 0;
+            animation: fadeInUp 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        }
+        
+        .col-delay-0 { animation-delay: 0.1s; }
+        .col-delay-1 { animation-delay: 0.2s; }
+        .col-delay-2 { animation-delay: 0.3s; }
+        .col-delay-3 { animation-delay: 0.4s; }
+        .col-delay-4 { animation-delay: 0.5s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-pop {
+            animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(248, 51, 80, 0.4); border-color: var(--accent); }
+            100% { transform: scale(1); }
+        }
+
+        .animate-glow {
+            animation: glow 1s ease-out;
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 0 rgba(241, 196, 15, 0); }
+            50% { box-shadow: 0 0 20px rgba(241, 196, 15, 0.6); background-color: rgba(241, 196, 15, 0.1); border-color: var(--gold); }
+            100% { box-shadow: 0 0 0 rgba(241, 196, 15, 0); }
+        }
+
+        .svg-line {
+            transition: stroke-dashoffset 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         ::-webkit-scrollbar { height: 10px; width: 10px; }

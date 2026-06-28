@@ -212,12 +212,30 @@
             
             saveData();
             renderBracket();
+            
+            setTimeout(() => {
+                const card = document.getElementById(`match-${matchId}`);
+                if (card) {
+                    card.classList.remove('animate-pop');
+                    void card.offsetWidth;
+                    card.classList.add('animate-pop');
+                }
+            }, 60);
         }
 
         window.handlePenalty = function(matchId, winnerStr) {
             state.penalties[`m${matchId}`] = winnerStr;
             saveData();
             renderBracket();
+            
+            setTimeout(() => {
+                const card = document.getElementById(`match-${matchId}`);
+                if (card) {
+                    card.classList.remove('animate-pop');
+                    void card.offsetWidth;
+                    card.classList.add('animate-pop');
+                }
+            }, 60);
         }
 
         window.handleManualTeam = function(matchId, side, encodedObj) {
@@ -323,9 +341,9 @@
 
             const currentLayout = isMobileView ? layoutColumnsMobile : layoutColumnsDesktop;
 
-            currentLayout.forEach(col => {
+            currentLayout.forEach((col, index) => {
                 const columnDiv = document.createElement('div');
-                columnDiv.className = `column ${col.class || ''}`;
+                columnDiv.className = `column ${col.class || ''} col-delay-${index}`;
 
                 col.matches.forEach(item => {
                     if (item === 'trophy') {
@@ -399,8 +417,18 @@
                     path.setAttribute('fill', 'none');
                     path.setAttribute('stroke', '#4a4b62'); 
                     path.setAttribute('stroke-width', '2');
+                    path.setAttribute('class', 'svg-line');
                     
                     svg.appendChild(path);
+                    
+                    const length = path.getTotalLength();
+                    path.style.strokeDasharray = length;
+                    path.style.strokeDashoffset = length;
+                    
+                    // Trigger draw animation
+                    setTimeout(() => {
+                        path.style.strokeDashoffset = '0';
+                    }, 50);
                 });
             });
         }
