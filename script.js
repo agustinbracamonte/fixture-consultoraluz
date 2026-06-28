@@ -324,7 +324,7 @@
                 
                 const availableWidth = wrapper.clientWidth;
                 // Add 40px padding protection
-                const scale = Math.min(1, (availableWidth - 40) / 1750);
+                const scale = Math.min(1, (availableWidth - 40) / 1850);
                 container.style.transform = `scale(${scale})`;
                 
                 // Adjust height of wrapper based on scaled container
@@ -416,13 +416,10 @@
 
                     if (isLeft) { startX += 5; endX -= 5; } else { startX -= 5; endX += 5; }
 
-                    const hDist = Math.abs(endX - startX);
-                    const tension = Math.max(40, hDist / 2); // Garantiza curva suave incluso si están desalineados verticalmente
-                    const cp1X = isLeft ? startX + tension : startX - tension;
-                    const cp2X = isLeft ? endX - tension : endX + tension;
+                    const midX = startX + (endX - startX) / 2;
 
                     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                    const curve = `M ${startX} ${startY} C ${cp1X} ${startY}, ${cp2X} ${endY}, ${endX} ${endY}`;
+                    const curve = `M ${startX} ${startY} C ${midX} ${startY}, ${midX} ${endY}, ${endX} ${endY}`;
                     
                     path.setAttribute('d', curve);
                     path.setAttribute('fill', 'none');
@@ -432,7 +429,8 @@
                     
                     svg.appendChild(path);
                     
-                    const length = path.getTotalLength();
+                    // Sumamos 100px extra para garantizar que el trazado animado nunca se corte antes de llegar al final
+                    const length = path.getTotalLength() + 100;
                     path.style.strokeDasharray = length;
                     path.style.strokeDashoffset = length;
                     

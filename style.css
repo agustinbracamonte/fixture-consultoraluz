@@ -152,8 +152,8 @@
             display: flex;
             justify-content: space-between;
             align-items: stretch;
-            min-width: 1750px;
-            gap: 40px;
+            min-width: 1850px;
+            gap: 60px;
             margin: 0 auto;
             transform-origin: top center;
         }
