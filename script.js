@@ -372,15 +372,15 @@
         }
 
         function getRelativeCoords(elem, container) {
-            let top = 0, left = 0;
-            let width = elem.offsetWidth;
-            let height = elem.offsetHeight;
-            while(elem && elem !== container && elem !== null) {
-                top += elem.offsetTop;
-                left += elem.offsetLeft;
-                elem = elem.offsetParent;
-            }
-            return { left, right: left + width, top, height };
+            // getBoundingClientRect devuelve coordenadas ya teniendo en cuenta CSS transform: scale()
+            const eRect = elem.getBoundingClientRect();
+            const cRect = container.getBoundingClientRect();
+            return {
+                left:   eRect.left   - cRect.left,
+                right:  eRect.right  - cRect.left,
+                top:    eRect.top    - cRect.top,
+                height: eRect.height
+            };
         }
 
         function drawSVGConnectorLines() {
