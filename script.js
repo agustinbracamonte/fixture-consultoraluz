@@ -66,7 +66,6 @@
         ];
 
         let isMobileView = window.innerWidth <= 1024;
-        let liveData = {};
 
         // Memoria y Estado
         let state = JSON.parse(localStorage.getItem('mundial2026_pro')) || { 
@@ -206,7 +205,6 @@
 
         // Manejadores globales
         window.handleScoreChange = function(matchId, side, value) {
-            if (liveData[matchId]) return; // Bloqueado por datos oficiales
             state.scores[`m${matchId}${side.toLowerCase()}`] = value;
             let sA = state.scores[`m${matchId}a`];
             let sB = state.scores[`m${matchId}b`];
@@ -217,7 +215,6 @@
         }
 
         window.handlePenalty = function(matchId, winnerStr) {
-            if (liveData[matchId]) return; // Bloqueado por datos oficiales
             state.penalties[`m${matchId}`] = winnerStr;
             saveData();
             renderBracket();
@@ -236,9 +233,6 @@
             let penWinner = state.penalties[`m${matchId}`];
 
             let isTie = (scoreA !== '' && scoreB !== '' && scoreA === scoreB);
-            
-            let isLocked = liveData[matchId] ? true : false;
-            let disabledAttr = isLocked ? 'disabled' : '';
             
             // Lógica de fecha dinámica y estadios para todos los partidos
             let dateStr = "";
@@ -263,9 +257,9 @@
                             ${renderTeamSelector(matchId, 'A')}
                         </div>
                         <button class="penalty-btn ${penWinner === 'A' ? 'active' : ''}" 
-                                style="display: ${isTie ? 'flex' : 'none'}; ${isLocked ? 'cursor: not-allowed; opacity: 0.7;' : ''}" 
+                                style="display: ${isTie ? 'flex' : 'none'};" 
                                 onclick="handlePenalty(${matchId}, 'A')" title="Ganó por penales">P</button>
-                        <select class="goal-select" onchange="handleScoreChange(${matchId}, 'A', this.value)" ${disabledAttr}>
+                        <select class="goal-select" onchange="handleScoreChange(${matchId}, 'A', this.value)">
                             ${generateGoalOptions(String(scoreA))}
                         </select>
                     </div>
@@ -275,9 +269,9 @@
                             ${renderTeamSelector(matchId, 'B')}
                         </div>
                         <button class="penalty-btn ${penWinner === 'B' ? 'active' : ''}" 
-                                style="display: ${isTie ? 'flex' : 'none'}; ${isLocked ? 'cursor: not-allowed; opacity: 0.7;' : ''}" 
+                                style="display: ${isTie ? 'flex' : 'none'};" 
                                 onclick="handlePenalty(${matchId}, 'B')" title="Ganó por penales">P</button>
-                        <select class="goal-select" onchange="handleScoreChange(${matchId}, 'B', this.value)" ${disabledAttr}>
+                        <select class="goal-select" onchange="handleScoreChange(${matchId}, 'B', this.value)">
                             ${generateGoalOptions(String(scoreB))}
                         </select>
                     </div>
@@ -478,27 +472,4 @@
         });
 
         // Inicio
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                // Fetch dynamic cache-busted JSON
-                const res = await fetch('live-data.json?t=' + new Date().getTime());
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data && data.matches) {
-                        liveData = data.matches;
-                        // Inject official data into state
-                        for (const [mId, mData] of Object.entries(liveData)) {
-                            if (mData) {
-                                state.scores[`m${mId}a`] = mData.scoreA;
-                                state.scores[`m${mId}b`] = mData.scoreB;
-                                if (mData.penalties) state.penalties[`m${mId}`] = mData.penalties;
-                                else delete state.penalties[`m${mId}`];
-                            }
-                        }
-                    }
-                }
-            } catch (e) {
-                console.log("No live data found or network error.");
-            }
-            renderBracket();
-        });
+        document.addEventListener('DOMContentLoaded', renderBracket);

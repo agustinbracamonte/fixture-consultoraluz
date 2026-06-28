@@ -1,7 +1,0 @@
-{
-    "_comentario": "Usa este archivo para bloquear resultados oficiales. Si no hay partido oficial terminado, dejalo en null o vacio.",
-    "matches": {
-        "1": { "scoreA": 2, "scoreB": 1 },
-        "2": null
-    }
-}
