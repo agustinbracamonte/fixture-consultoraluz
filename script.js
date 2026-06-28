@@ -319,7 +319,7 @@
                 wrapper.style.minHeight = 'auto';
                 wrapper.style.overflowX = 'auto';
             } else {
-                container.style.minWidth = '1750px';
+                container.style.minWidth = '1850px';
                 wrapper.style.justifyContent = 'center';
                 
                 const availableWidth = wrapper.clientWidth;
@@ -376,15 +376,30 @@
         }
 
         function getRelativeCoords(elem, container) {
-            let top = 0, left = 0;
-            let width = elem.offsetWidth;
-            let height = elem.offsetHeight;
-            while(elem && elem !== container && elem !== null) {
-                top += elem.offsetTop;
-                left += elem.offsetLeft;
-                elem = elem.offsetParent;
+            const eRect = elem.getBoundingClientRect();
+            const cRect = container.getBoundingClientRect();
+            
+            let scale = 1;
+            try {
+                const style = window.getComputedStyle(container);
+                const matrix = style.transform || style.webkitTransform || style.mozTransform;
+                if (matrix && matrix !== 'none') {
+                    const parts = matrix.split('(')[1].split(')')[0].split(',');
+                    const a = parseFloat(parts[0]);
+                    const b = parseFloat(parts[1]);
+                    scale = Math.sqrt(a * a + b * b);
+                }
+            } catch (e) {
+                scale = 1;
             }
-            return { left, right: left + width, top, height };
+            if (!scale || isNaN(scale)) scale = 1;
+
+            return {
+                left:   (eRect.left - cRect.left) / scale,
+                right:  (eRect.right - cRect.left) / scale,
+                top:    (eRect.top - cRect.top) / scale,
+                height: eRect.height / scale
+            };
         }
 
         function drawSVGConnectorLines() {
