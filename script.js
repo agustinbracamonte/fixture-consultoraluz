@@ -1,4 +1,4 @@
-﻿// Todas las fechas oficiales están almacenadas usando UTC-3 (Hora Argentina) como ancla inicial. 
+// Todas las fechas oficiales están almacenadas usando UTC-3 (Hora Argentina) como ancla inicial. 
         // El sistema las convertirá a la franja elegida.
         
         // Dieciseisavos de Final (Ronda de 32)
@@ -342,13 +342,24 @@
             setTimeout(applyLayoutAndScale, 50); 
         }
 
+        function getRelativeCoords(elem, container) {
+            let top = 0, left = 0;
+            let width = elem.offsetWidth;
+            let height = elem.offsetHeight;
+            while(elem && elem !== container && elem !== null) {
+                top += elem.offsetTop;
+                left += elem.offsetLeft;
+                elem = elem.offsetParent;
+            }
+            return { left, right: left + width, top, height };
+        }
+
         function drawSVGConnectorLines() {
             const svg = document.getElementById('lines-svg');
             const container = document.getElementById('bracket-board');
             if (!svg || !container) return;
 
             svg.innerHTML = '';
-            const containerRect = container.getBoundingClientRect();
 
             Object.keys(matchFlow).forEach(targetId => {
                 const targetCard = document.getElementById(`match-${targetId}`);
@@ -361,16 +372,16 @@
                     const sourceCard = document.getElementById(`match-${sourceId}`);
                     if (!sourceCard) return;
 
-                    const sRect = sourceCard.getBoundingClientRect();
-                    const tRect = targetCard.getBoundingClientRect();
+                    const sRect = getRelativeCoords(sourceCard, container);
+                    const tRect = getRelativeCoords(targetCard, container);
 
                     const isLeft = sRect.left < tRect.left;
 
-                    let startX = isLeft ? (sRect.right - containerRect.left) : (sRect.left - containerRect.left);
-                    let startY = (sRect.top - containerRect.top) + (sRect.height / 2);
+                    let startX = isLeft ? sRect.right : sRect.left;
+                    let startY = sRect.top + (sRect.height / 2);
 
-                    let endX = isLeft ? (tRect.left - containerRect.left) : (tRect.right - containerRect.left);
-                    let endY = (tRect.top - containerRect.top) + (tRect.height / 2);
+                    let endX = isLeft ? tRect.left : tRect.right;
+                    let endY = tRect.top + (tRect.height / 2);
 
                     if (isLeft) { startX += 5; endX -= 5; } else { startX -= 5; endX += 5; }
 
@@ -392,6 +403,47 @@
         window.addEventListener('resize', () => {
             applyLayoutAndScale();
         });
+
+        // Tabs Móviles
+        window.scrollToColumn = function(index) {
+            const columns = document.querySelectorAll('.column');
+            if (columns[index]) {
+                columns[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        };
+
+        function setupIntersectionObserver() {
+            const columns = document.querySelectorAll('.column');
+            const tabs = document.querySelectorAll('.tab-item');
+            if (!columns.length || !tabs.length) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const index = Array.from(columns).indexOf(entry.target);
+                        if (index !== -1 && tabs[index]) {
+                            tabs.forEach(t => t.classList.remove('active'));
+                            tabs[index].classList.add('active');
+                            tabs[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                        }
+                    }
+                });
+            }, {
+                root: document.getElementById('scroll-area'),
+                threshold: 0.5
+            });
+
+            if (window.colObserver) window.colObserver.disconnect();
+            window.colObserver = observer;
+            columns.forEach(col => observer.observe(col));
+        }
+
+        const originalApplyLayoutAndScale = applyLayoutAndScale;
+        applyLayoutAndScale = function() {
+            originalApplyLayoutAndScale();
+            if (isMobileView) setupIntersectionObserver();
+            else if (window.colObserver) window.colObserver.disconnect();
+        };
 
         // Deslizamiento táctil en PC
         const slider = document.getElementById('scroll-area');

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -32,6 +32,14 @@
             <button class="btn-clear" onclick="resetFixture()">🗑️ Limpiar Fixture</button>
         </div>
     </header>
+
+    <nav id="mobile-tabs" class="mobile-tabs">
+        <button class="tab-item active" onclick="scrollToColumn(0)">16vos.</button>
+        <button class="tab-item" onclick="scrollToColumn(1)">8vos.</button>
+        <button class="tab-item" onclick="scrollToColumn(2)">CF</button>
+        <button class="tab-item" onclick="scrollToColumn(3)">SF</button>
+        <button class="tab-item" onclick="scrollToColumn(4)">F</button>
+    </nav>
 
     <div class="board-wrapper" id="scroll-area">
         <div class="bracket-container" id="bracket-board">

@@ -1,4 +1,4 @@
-﻿:root {
+:root {
             --bg-color: #0b0b10;
             --card-bg: #161620;
             --text-main: #ffffff;
@@ -330,10 +330,61 @@
         ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 5px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--line-color); }
 
+        .mobile-tabs {
+            display: none;
+        }
+
         @media (max-width: 1024px) {
-            .mobile-hint { display: inline-block; }
-            .board-wrapper { justify-content: flex-start; }
+            .mobile-hint { display: none; }
+            
+            .mobile-tabs {
+                display: flex;
+                background: var(--bg-color);
+                border-bottom: 1px solid var(--border);
+                position: sticky;
+                top: 0;
+                z-index: 20;
+                padding: 8px 10px;
+                gap: 5px;
+                justify-content: space-between;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            }
+            .tab-item {
+                flex: 1;
+                background: transparent;
+                color: var(--text-muted);
+                border: none;
+                padding: 10px 5px;
+                font-weight: bold;
+                font-size: 0.9rem;
+                cursor: pointer;
+                border-radius: 6px;
+                transition: all 0.2s;
+                text-align: center;
+            }
+            .tab-item.active {
+                background: rgba(168, 127, 251, 0.15);
+                color: var(--brand);
+            }
+            .board-wrapper { 
+                justify-content: flex-start;
+                scroll-snap-type: x mandatory;
+                scroll-behavior: smooth;
+                padding: 15px 0;
+            }
             .bracket-container { margin: 0; min-width: max-content; }
+            .column {
+                width: 100vw;
+                padding: 0 15px;
+                box-sizing: border-box;
+                scroll-snap-align: center;
+            }
+            .column.center {
+                width: 100vw;
+            }
+            .match-card {
+                margin: 5px 0;
+            }
         }
 
         @media (max-width: 768px) {
