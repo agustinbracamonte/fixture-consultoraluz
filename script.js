@@ -361,26 +361,30 @@
             });
 
             setTimeout(() => {
-                applyLayoutAndScale();
                 if (window.twemoji) {
                     twemoji.parse(document.getElementById('columns-wrapper'), {
                         folder: 'svg',
                         ext: '.svg'
                     });
                 }
+                applyLayoutAndScale();
+                
+                // Redibujar después de que terminen las animaciones CSS (0.8s) y la carga de imágenes
+                setTimeout(drawSVGConnectorLines, 400);
+                setTimeout(drawSVGConnectorLines, 900);
             }, 50); 
         }
 
         function getRelativeCoords(elem, container) {
-            // getBoundingClientRect devuelve coordenadas ya teniendo en cuenta CSS transform: scale()
-            const eRect = elem.getBoundingClientRect();
-            const cRect = container.getBoundingClientRect();
-            return {
-                left:   eRect.left   - cRect.left,
-                right:  eRect.right  - cRect.left,
-                top:    eRect.top    - cRect.top,
-                height: eRect.height
-            };
+            let top = 0, left = 0;
+            let width = elem.offsetWidth;
+            let height = elem.offsetHeight;
+            while(elem && elem !== container && elem !== null) {
+                top += elem.offsetTop;
+                left += elem.offsetLeft;
+                elem = elem.offsetParent;
+            }
+            return { left, right: left + width, top, height };
         }
 
         function drawSVGConnectorLines() {
