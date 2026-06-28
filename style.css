@@ -382,6 +382,8 @@
             }
             .column.center {
                 width: 100vw;
+                justify-content: flex-start;
+                align-items: stretch;
             }
             .match-card {
                 margin: 5px 0;
