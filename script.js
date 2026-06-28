@@ -360,7 +360,15 @@
                 container.appendChild(columnDiv);
             });
 
-            setTimeout(applyLayoutAndScale, 50); 
+            setTimeout(() => {
+                applyLayoutAndScale();
+                if (window.twemoji) {
+                    twemoji.parse(document.getElementById('columns-wrapper'), {
+                        folder: 'svg',
+                        ext: '.svg'
+                    });
+                }
+            }, 50); 
         }
 
         function getRelativeCoords(elem, container) {
@@ -408,10 +416,13 @@
 
                     if (isLeft) { startX += 5; endX -= 5; } else { startX -= 5; endX += 5; }
 
-                    const midX = startX + (endX - startX) / 2;
+                    const hDist = Math.abs(endX - startX);
+                    const tension = Math.max(40, hDist / 2); // Garantiza curva suave incluso si están desalineados verticalmente
+                    const cp1X = isLeft ? startX + tension : startX - tension;
+                    const cp2X = isLeft ? endX - tension : endX + tension;
 
                     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                    const curve = `M ${startX} ${startY} C ${midX} ${startY}, ${midX} ${endY}, ${endX} ${endY}`;
+                    const curve = `M ${startX} ${startY} C ${cp1X} ${startY}, ${cp2X} ${endY}, ${endX} ${endY}`;
                     
                     path.setAttribute('d', curve);
                     path.setAttribute('fill', 'none');
