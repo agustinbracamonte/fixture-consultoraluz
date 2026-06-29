@@ -751,9 +751,7 @@
 
         // Inicio
         document.addEventListener('DOMContentLoaded', () => {
-            renderBracket(true);
-            
-            // --- Splash Screen Animación ---
+            // --- Splash Screen Animación (Ejecutar primero) ---
             const splashScreen = document.getElementById('splash-screen');
             const confettiContainer = document.getElementById('confetti-container');
             
@@ -776,12 +774,18 @@
                     confettiContainer.appendChild(confetti);
                 }
                 
-                // Ocultar splash screen después de 3.5 segundos
+                // Ocultar splash screen después de 3 segundos
                 setTimeout(() => {
                     splashScreen.style.opacity = '0';
                     setTimeout(() => {
                         splashScreen.style.display = 'none';
                     }, 800);
-                }, 3500);
+                }, 3000);
+            }
+
+            try {
+                renderBracket(true);
+            } catch (e) {
+                console.error("Error rendering bracket:", e);
             }
         });
