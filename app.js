@@ -290,6 +290,21 @@
             renderBracket();
         }
 
+        window.activeHighlight = null;
+        window.toggleMatchHighlight = function(e, matchId) {
+            // Ignorar clicks si provienen de botones o selects internos
+            if (e.target.tagName === 'SELECT' || e.target.tagName === 'BUTTON' || e.target.tagName === 'OPTION') return;
+            
+            if (window.activeHighlight === matchId) {
+                handleMatchHover(matchId, false);
+                window.activeHighlight = null;
+            } else {
+                if (window.activeHighlight) handleMatchHover(window.activeHighlight, false);
+                handleMatchHover(matchId, true);
+                window.activeHighlight = matchId;
+            }
+        };
+
         window.handleMatchHover = function(matchId, isHover) {
             function traceBackward(id) {
                 const paths = document.querySelectorAll(`path[data-target="${id}"]`);
@@ -359,6 +374,7 @@
 
             return `
                 <div class="match-card ${finalClass} ${pairClass}" id="match-${matchId}"
+                     onclick="toggleMatchHighlight(event, ${matchId})"
                      onmouseenter="handleMatchHover(${matchId}, true)" 
                      onmouseleave="handleMatchHover(${matchId}, false)">
                     <div class="match-header">
