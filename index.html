@@ -32,28 +32,31 @@
 <body>
 
     <header>
-        <!-- Badge con enlace funcional -->
-        <a href="https://consultoraluz.com" target="_blank" class="sponsor-badge">By Consultora Luz 💡</a>
-        
-        <h1>COPA MUNDIAL 2026™</h1>
-        <div class="subtitle">
-            Horarios adaptados a tu región: 
-            <select id="tz-select" class="tz-selector" onchange="changeTimezone(this.value)">
-                <option value="America/Argentina/Buenos_Aires">🇦🇷 Argentina (UTC-3)</option>
-                <option value="America/Montevideo">🇺🇾 Uruguay (UTC-3)</option>
-                <option value="America/Santiago">🇨🇱 Chile (UTC-4)</option>
-                <option value="America/Caracas">🇻🇪 Venezuela / 🇧🇴 Bolivia (UTC-4)</option>
-                <option value="America/New_York">🇺🇸 Este USA / Miami / NY (UTC-4)</option>
-                <option value="America/Bogota">🇨🇴 Colombia / 🇵🇪 Perú / 🇪🇨 Ecuador (UTC-5)</option>
-                <option value="America/Mexico_City">🇲🇽 México CDMX (UTC-6)</option>
-                <option value="America/Los_Angeles">🇺🇸 Oeste USA / Los Ángeles (UTC-7)</option>
-                <option value="Europe/Madrid">🇪🇸 España (UTC+2)</option>
-            </select>
+        <div class="header-left">
+            <h1>COPA MUNDIAL 2026™</h1>
+            <!-- Badge con enlace funcional -->
+            <a href="https://consultoraluz.com" target="_blank" class="sponsor-badge">By Consultora Luz 💡</a>
+        </div>
+        <div class="header-right">
+            <div class="subtitle">
+                Horarios adaptados a tu región: 
+                <select id="tz-select" class="tz-selector" onchange="changeTimezone(this.value)">
+                    <option value="America/Argentina/Buenos_Aires">🇦🇷 Argentina (UTC-3)</option>
+                    <option value="America/Montevideo">🇺🇾 Uruguay (UTC-3)</option>
+                    <option value="America/Santiago">🇨🇱 Chile (UTC-4)</option>
+                    <option value="America/Caracas">🇻🇪 Venezuela / 🇧🇴 Bolivia (UTC-4)</option>
+                    <option value="America/New_York">🇺🇸 Este USA / Miami / NY (UTC-4)</option>
+                    <option value="America/Bogota">🇨🇴 Colombia / 🇵🇪 Perú / 🇪🇨 Ecuador (UTC-5)</option>
+                    <option value="America/Mexico_City">🇲🇽 México CDMX (UTC-6)</option>
+                    <option value="America/Los_Angeles">🇺🇸 Oeste USA / Los Ángeles (UTC-7)</option>
+                    <option value="Europe/Madrid">🇪🇸 España (UTC+2)</option>
+                </select>
+            </div>
+            <div class="controls">
+                <button class="btn-clear" onclick="resetFixture(this)">🗑️ Limpiar Fixture</button>
+            </div>
         </div>
         <div class="mobile-hint">👉 Desliza lateralmente para ver el cuadro completo</div>
-        <div class="controls">
-            <button class="btn-clear" onclick="resetFixture()">🗑️ Limpiar Fixture</button>
-        </div>
     </header>
 
     <nav id="mobile-tabs" class="mobile-tabs">

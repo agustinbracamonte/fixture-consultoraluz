@@ -13,6 +13,10 @@
             --brand: #a87ffb;
         }
 
+        html, body {
+            overflow-x: hidden;
+        }
+
         body {
             margin: 0;
             padding: 0;
@@ -22,10 +26,8 @@
         }
 
         /* Etiqueta clickeable de Consultora Luz */
+        /* Etiqueta clickeable de Consultora Luz */
         .sponsor-badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
             background: rgba(168, 127, 251, 0.1);
             border: 1px solid rgba(168, 127, 251, 0.3);
             color: var(--brand);
@@ -34,7 +36,6 @@
             font-size: 0.8rem;
             font-weight: 700;
             letter-spacing: 0.5px;
-            z-index: 10;
             text-decoration: none;
             transition: all 0.2s ease-in-out;
             box-shadow: 0 4px 10px rgba(168, 127, 251, 0.1);
@@ -49,15 +50,30 @@
 
         header {
             position: relative;
-            text-align: center;
-            padding: 50px 20px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
             background: linear-gradient(180deg, #13131c 0%, var(--bg-color) 100%);
             border-bottom: 1px solid var(--border);
+            gap: 20px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 25px;
         }
 
         h1 {
             margin: 0;
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-size: 1.6rem;
             letter-spacing: 1px;
             text-transform: uppercase;
             font-weight: 900;
@@ -66,7 +82,7 @@
         .subtitle {
             color: var(--text-muted);
             font-size: 0.95rem;
-            margin-top: 15px;
+            margin-top: 0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -108,7 +124,7 @@
         }
 
         .controls {
-            margin-top: 20px;
+            margin-top: 0;
             display: flex;
             justify-content: center;
             gap: 15px;
@@ -130,6 +146,11 @@
         button.btn-clear:hover {
             background-color: var(--accent-hover);
             transform: translateY(-2px);
+        }
+
+        button.btn-clear.confirming {
+            background-color: #e67e22;
+            box-shadow: 0 4px 12px rgba(230, 126, 34, 0.25);
         }
 
         .board-wrapper {
@@ -405,6 +426,43 @@
         @media (max-width: 1024px) {
             .mobile-hint { display: none; }
             
+            header {
+                flex-direction: column;
+                padding: 45px 15px 15px;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .header-left {
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+                width: 100%;
+            }
+
+            .header-right {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                width: 100%;
+            }
+
+            .sponsor-badge {
+                position: absolute;
+                top: 15px;
+                right: 50%;
+                transform: translateX(50%);
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .subtitle {
+                flex-direction: column;
+                gap: 5px;
+            }
+
             .mobile-tabs {
                 display: flex;
                 background: var(--bg-color);
@@ -417,6 +475,7 @@
                 justify-content: space-between;
                 box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             }
+
             .tab-item {
                 flex: 1;
                 background: transparent;
@@ -459,9 +518,8 @@
         }
 
         @media (max-width: 768px) {
-            h1 { font-size: 1.5rem; }
+            h1 { font-size: 1.3rem; }
             .board-wrapper { padding: 20px 10px; }
-            .sponsor-badge { top: 10px; right: 10px; font-size: 0.7rem; padding: 6px 12px; }
-            header { padding-top: 55px; }
+            header { padding-top: 45px; }
             .subtitle { flex-direction: column; gap: 5px; }
         }

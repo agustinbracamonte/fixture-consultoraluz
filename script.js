@@ -82,8 +82,21 @@
             localStorage.setItem('mundial2026_pro', JSON.stringify(state));
         }
 
-        function resetFixture() {
-            if(window.confirm('¿Borrar todos los resultados y empezar de cero?')) {
+        window.resetFixture = function(btn) {
+            if (!btn) btn = document.querySelector('.btn-clear');
+            if (!btn.classList.contains('confirming')) {
+                btn.classList.add('confirming');
+                btn.innerHTML = '⚠️ ¿Confirmar?';
+                // Resetear de vuelta tras 3 segundos si no se vuelve a presionar
+                btn.timeoutId = setTimeout(() => {
+                    btn.classList.remove('confirming');
+                    btn.innerHTML = '🗑️ Limpiar Fixture';
+                }, 3000);
+            } else {
+                clearTimeout(btn.timeoutId);
+                btn.classList.remove('confirming');
+                btn.innerHTML = '🗑️ Limpiar Fixture';
+                
                 const currentTz = state.timezone;
                 state = { scores: {}, penalties: {}, manualTeams: {}, timezone: currentTz };
                 saveData();
@@ -514,6 +527,19 @@
         let scrollLeft;
 
         slider.addEventListener('mousedown', (e) => {
+            // Si el cuadro está escalado para caber (escala < 1), no permitir arrastre
+            const container = document.getElementById('bracket-board');
+            let scale = 1;
+            try {
+                const style = window.getComputedStyle(container);
+                const matrix = style.transform || style.webkitTransform || style.mozTransform;
+                if (matrix && matrix !== 'none') {
+                    const parts = matrix.split('(')[1].split(')')[0].split(',');
+                    scale = Math.sqrt(parseFloat(parts[0])**2 + parseFloat(parts[1])**2);
+                }
+            } catch(err) {}
+            if (scale < 0.99) return;
+
             isDown = true;
             startX = e.pageX - slider.offsetLeft;
             scrollLeft = slider.scrollLeft;
