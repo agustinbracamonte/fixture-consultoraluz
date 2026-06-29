@@ -431,32 +431,49 @@
                 wrapper.style.minHeight = 'auto';
                 wrapper.style.overflowX = 'auto';
             } else {
+                // Permitimos que el contenedor tome su ancho natural
                 container.style.minWidth = '1850px';
                 
-                // Resetear la altura del contenedor para calcular su altura real no restringida
+                // Resetear transformaciones para calcular tamaños reales
+                container.style.transform = 'none';
+                container.style.margin = '0px';
+                wrapper.style.justifyContent = 'flex-start'; // Evita el bug de recorte izquierdo en flexbox
                 wrapper.style.height = 'auto';
                 
                 const availableWidth = wrapper.clientWidth;
-                // Add 40px padding protection
-                let scale = Math.min(1, (availableWidth - 40) / 1850);
+                const unscaledWidth = container.scrollWidth;
+                
+                // Calculamos la escala basada en el ancho REAL del contenido
+                let scale = Math.min(1, (availableWidth - 40) / unscaledWidth);
+                
                 if (userForcedDesktop && window.innerWidth <= mobileThreshold) {
                     scale = Math.max(0.5, scale); // Mantener un tamaño legible en celular
-                    container.style.transformOrigin = 'top left';
-                    wrapper.style.justifyContent = 'flex-start';
-                } else {
-                    container.style.transformOrigin = 'top center';
-                    wrapper.style.justifyContent = 'center';
                 }
+                
+                container.style.transformOrigin = 'top left';
                 container.style.transform = `scale(${scale})`;
                 
-                // Fix para el scroll infinito: si está escalado desde top left, eliminamos el espacio vacío
-                if (scale < 1 && userForcedDesktop && window.innerWidth <= mobileThreshold) {
-                    const emptySpace = container.scrollWidth - (container.scrollWidth * scale);
+                const scaledWidth = unscaledWidth * scale;
+                
+                if (scale < 1 || (userForcedDesktop && window.innerWidth <= mobileThreshold)) {
+                    // Centrar visualmente usando márgenes, evitando scroll negativo
+                    let leftover = Math.max(0, availableWidth - scaledWidth);
+                    let marginLeft = leftover / 2;
+                    
+                    if (userForcedDesktop && window.innerWidth <= mobileThreshold) {
+                        marginLeft = 20; // Solo un pequeño padding en móvil, el resto es scroll
+                    }
+                    
+                    container.style.marginLeft = `${marginLeft}px`;
+                    
+                    // Eliminar espacio muerto generado por el escalado CSS
+                    const emptySpace = unscaledWidth - scaledWidth;
                     const emptyHeight = container.scrollHeight - (container.scrollHeight * scale);
                     container.style.marginRight = `-${emptySpace}px`;
                     container.style.marginBottom = `-${emptyHeight}px`;
                 } else {
-                    container.style.marginRight = '0px';
+                    container.style.marginLeft = 'auto';
+                    container.style.marginRight = 'auto';
                     container.style.marginBottom = '0px';
                 }
                 
@@ -597,12 +614,12 @@
             const container = document.getElementById('bracket-board');
             if (!svg || !container) return;
 
-            // Fijamos dimensiones exactas y viewBox para evitar recorte (clipping) de navegadores al hacer zoom
-            const scrollW = container.scrollWidth;
-            const scrollH = container.scrollHeight;
-            svg.setAttribute('width', scrollW);
-            svg.setAttribute('height', scrollH);
-            svg.setAttribute('viewBox', `0 0 ${scrollW} ${scrollH}`);
+            // Limpiamos atributos de viewBox que causan escalado interno incorrecto
+            svg.removeAttribute('viewBox');
+            svg.removeAttribute('width');
+            svg.removeAttribute('height');
+            svg.style.width = '100%';
+            svg.style.height = '100%';
 
             svg.innerHTML = '';
 
