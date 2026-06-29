@@ -322,6 +322,9 @@
                 container.style.minWidth = '1850px';
                 wrapper.style.justifyContent = 'center';
                 
+                // Resetear la altura del contenedor para calcular su altura real no restringida
+                wrapper.style.height = 'auto';
+                
                 const availableWidth = wrapper.clientWidth;
                 // Add 40px padding protection
                 const scale = Math.min(1, (availableWidth - 40) / 1850);
@@ -410,8 +413,6 @@
             svg.innerHTML = '';
 
             Object.keys(matchFlow).forEach(targetId => {
-                if (targetId == 32) return; // No dibujar líneas para el Tercer Puesto
-                
                 const targetCard = document.getElementById(`match-${targetId}`);
                 if (!targetCard) return;
 
