@@ -700,15 +700,6 @@
                         if (index !== -1 && tabs[index]) {
                             tabs.forEach(t => t.classList.remove('active'));
                             tabs[index].classList.add('active');
-                            
-                            const tab = tabs[index];
-                            const nav = document.getElementById('mobile-tabs');
-                            if (nav) {
-                                nav.scrollTo({
-                                    left: tab.offsetLeft - (nav.clientWidth / 2) + (tab.clientWidth / 2),
-                                    behavior: 'smooth'
-                                });
-                            }
                         }
                     }
                 });
