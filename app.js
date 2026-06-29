@@ -750,4 +750,38 @@
         });
 
         // Inicio
-        document.addEventListener('DOMContentLoaded', () => renderBracket(true));
+        document.addEventListener('DOMContentLoaded', () => {
+            renderBracket(true);
+            
+            // --- Splash Screen Animación ---
+            const splashScreen = document.getElementById('splash-screen');
+            const confettiContainer = document.getElementById('confetti-container');
+            
+            if (splashScreen && confettiContainer) {
+                // Generar papelitos (Celestes y blancos)
+                const numConfetti = 60;
+                
+                for (let i = 0; i < numConfetti; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.classList.add('confetti');
+                    if (Math.random() > 0.5) {
+                        confetti.classList.add('blue');
+                    }
+                    
+                    // Posición, duración y retraso aleatorio
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    confetti.style.animationDelay = (Math.random() * 1.5) + 's';
+                    
+                    confettiContainer.appendChild(confetti);
+                }
+                
+                // Ocultar splash screen después de 3.5 segundos
+                setTimeout(() => {
+                    splashScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        splashScreen.style.display = 'none';
+                    }, 800);
+                }, 3500);
+            }
+        });
