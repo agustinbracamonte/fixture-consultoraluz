@@ -5,7 +5,7 @@
         const initialMatches = {
             1: { teamA: { name: 'Alemania', flag: '🇩🇪' }, teamB: { name: 'Paraguay', flag: '🇵🇾' }, isoDate: '2026-06-29T17:30:00-03:00', venue: 'Boston' },
             2: { teamA: { name: 'Francia', flag: '🇫🇷' }, teamB: { name: 'Suecia', flag: '🇸🇪' }, isoDate: '2026-06-30T18:00:00-03:00', venue: 'NY/NJ' },
-            3: { teamA: { name: 'Sudáfrica', flag: '🇿🇦' }, teamB: { name: 'Canadá', flag: '🇨🇦' }, isoDate: '2026-06-28T16:00:00-03:00', venue: 'Los Ángeles' },
+            3: { teamA: { name: 'Sudáfrica', flag: '🇿🇦' }, teamB: { name: 'Canadá', flag: '🇨🇦' }, isoDate: '2026-06-28T16:00:00-03:00', venue: 'Los Ángeles', scoreA: '0', scoreB: '1', isFinished: true },
             4: { teamA: { name: 'Países Bajos', flag: '🇳🇱' }, teamB: { name: 'Marruecos', flag: '🇲🇦' }, isoDate: '2026-06-29T22:00:00-03:00', venue: 'Monterrey' },
             5: { teamA: { name: 'Portugal', flag: '🇵🇹' }, teamB: { name: 'Croacia', flag: '🇭🇷' }, isoDate: '2026-07-02T17:00:00-03:00', venue: 'Toronto' },
             6: { teamA: { name: 'España', flag: '🇪🇸' }, teamB: { name: 'Austria', flag: '🇦🇹' }, isoDate: '2026-07-02T16:00:00-03:00', venue: 'Los Ángeles' },
@@ -66,6 +66,19 @@
         ];
 
         let isMobileView = window.innerWidth <= 1024;
+        let userForcedDesktop = false;
+
+        window.toggleView = function() {
+            userForcedDesktop = !userForcedDesktop;
+            document.body.classList.toggle('force-desktop', userForcedDesktop);
+            const btn = document.querySelector('.btn-toggle-view');
+            if (btn) {
+                btn.innerHTML = userForcedDesktop ? '📱 Vista Compacta' : '🖥️ Vista Completa';
+            }
+            
+            isMobileView = window.innerWidth <= 1024 && !userForcedDesktop;
+            renderBracket(true);
+        };
 
         // Memoria y Estado
         let state = JSON.parse(localStorage.getItem('mundial2026_pro')) || { 
@@ -130,8 +143,10 @@
         }
 
         function getWinnerFromScore(matchId) {
-            let sA = state.scores[`m${matchId}a`];
-            let sB = state.scores[`m${matchId}b`];
+            let matchData = matchId <= 16 ? initialMatches[matchId] : matchFlow[matchId];
+            let sA = (matchData && matchData.isFinished) ? matchData.scoreA : state.scores[`m${matchId}a`];
+            let sB = (matchData && matchData.isFinished) ? matchData.scoreB : state.scores[`m${matchId}b`];
+            
             if (sA === undefined || sA === '' || sB === undefined || sB === '') return null;
             
             sA = parseInt(sA);
@@ -140,7 +155,7 @@
             if (sA > sB) return 'A';
             if (sB > sA) return 'B';
             
-            let pen = state.penalties[`m${matchId}`];
+            let pen = (matchData && matchData.isFinished) ? matchData.penWinner : state.penalties[`m${matchId}`];
             if (pen) return pen;
             return null;
         }
@@ -286,15 +301,18 @@
         }
 
         function renderMatchCard(matchId) {
-            let scoreA = state.scores[`m${matchId}a`] !== undefined ? state.scores[`m${matchId}a`] : '';
-            let scoreB = state.scores[`m${matchId}b`] !== undefined ? state.scores[`m${matchId}b`] : '';
-            let penWinner = state.penalties[`m${matchId}`];
+            let matchData = matchId <= 16 ? initialMatches[matchId] : matchFlow[matchId];
+            let isFinished = matchData && matchData.isFinished === true;
+
+            let scoreA = isFinished ? matchData.scoreA : (state.scores[`m${matchId}a`] !== undefined ? state.scores[`m${matchId}a`] : '');
+            let scoreB = isFinished ? matchData.scoreB : (state.scores[`m${matchId}b`] !== undefined ? state.scores[`m${matchId}b`] : '');
+            let penWinner = isFinished ? matchData.penWinner : state.penalties[`m${matchId}`];
 
             let isTie = (scoreA !== '' && scoreB !== '' && scoreA === scoreB);
             
             // Lógica de fecha dinámica y estadios para todos los partidos
             let dateStr = "";
-            let matchData = matchId <= 16 ? initialMatches[matchId] : matchFlow[matchId];
+
             
             const formattedDate = formatMatchDate(matchData.isoDate);
             
@@ -305,12 +323,23 @@
             }
 
             let finalClass = matchId === 31 ? 'final' : '';
+            let pairClass = '';
+            
+            if (matchId <= 24) {
+                let pairIndex = matchId <= 16 ? Math.ceil(matchId / 2) : Math.ceil((matchId - 16) / 2);
+                if (pairIndex % 2 !== 0) {
+                    pairClass = 'pair-tint';
+                }
+            }
+
+            let resetBtnHtml = isFinished ? '' : `<button class="reset-match-btn" onclick="resetMatch(${matchId})" title="Reiniciar este partido">↺</button>`;
+            let disabledAttr = isFinished ? 'disabled' : '';
 
             return `
-                <div class="match-card ${finalClass}" id="match-${matchId}">
+                <div class="match-card ${finalClass} ${pairClass}" id="match-${matchId}">
                     <div class="match-header">
                         ${dateStr}
-                        <button class="reset-match-btn" onclick="resetMatch(${matchId})" title="Reiniciar este partido">↺</button>
+                        ${resetBtnHtml}
                     </div>
                     
                     <div class="team-row">
@@ -319,8 +348,8 @@
                         </div>
                         <button class="penalty-btn ${penWinner === 'A' ? 'active' : ''}" 
                                 style="display: ${isTie ? 'flex' : 'none'};" 
-                                onclick="handlePenalty(${matchId}, 'A')" title="Ganó por penales">P</button>
-                        <select class="goal-select" onchange="handleScoreChange(${matchId}, 'A', this.value)">
+                                ${isFinished ? 'disabled' : `onclick="handlePenalty(${matchId}, 'A')"`} title="Ganó por penales">P</button>
+                        <select class="goal-select" onchange="handleScoreChange(${matchId}, 'A', this.value)" ${disabledAttr}>
                             ${generateGoalOptions(String(scoreA))}
                         </select>
                     </div>
@@ -331,8 +360,8 @@
                         </div>
                         <button class="penalty-btn ${penWinner === 'B' ? 'active' : ''}" 
                                 style="display: ${isTie ? 'flex' : 'none'};" 
-                                onclick="handlePenalty(${matchId}, 'B')" title="Ganó por penales">P</button>
-                        <select class="goal-select" onchange="handleScoreChange(${matchId}, 'B', this.value)">
+                                ${isFinished ? 'disabled' : `onclick="handlePenalty(${matchId}, 'B')"`} title="Ganó por penales">P</button>
+                        <select class="goal-select" onchange="handleScoreChange(${matchId}, 'B', this.value)" ${disabledAttr}>
                             ${generateGoalOptions(String(scoreB))}
                         </select>
                     </div>
@@ -342,7 +371,7 @@
 
         function applyLayoutAndScale() {
             const mobileThreshold = 1024;
-            const isNowMobile = window.innerWidth <= mobileThreshold;
+            const isNowMobile = window.innerWidth <= mobileThreshold && !userForcedDesktop;
             
             if (isNowMobile !== isMobileView) {
                 isMobileView = isNowMobile;
@@ -370,7 +399,10 @@
                 
                 const availableWidth = wrapper.clientWidth;
                 // Add 40px padding protection
-                const scale = Math.min(1, (availableWidth - 40) / 1850);
+                let scale = Math.min(1, (availableWidth - 40) / 1850);
+                if (userForcedDesktop && window.innerWidth <= mobileThreshold) {
+                    scale = Math.max(0.5, scale); // Mantener un tamaño legible en celular
+                }
                 container.style.transform = `scale(${scale})`;
                 
                 // Adjust height of wrapper based on scaled container

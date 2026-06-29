@@ -153,6 +153,25 @@
             box-shadow: 0 4px 12px rgba(230, 126, 34, 0.25);
         }
 
+        .btn-toggle-view {
+            display: none;
+            background-color: #3b3c54;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        .btn-toggle-view:hover {
+            background-color: #4a4b62;
+            transform: translateY(-2px);
+        }
+
         .board-wrapper {
             width: 100%;
             overflow-x: auto;
@@ -450,6 +469,7 @@
 
         @media (max-width: 1024px) {
             .mobile-hint { display: none; }
+            .btn-toggle-view { display: block; }
             
             header {
                 flex-direction: column;
@@ -546,4 +566,39 @@
             .board-wrapper { padding: 20px 10px; }
             header { padding-top: 45px; }
             .subtitle { flex-direction: column; gap: 5px; }
+        }
+
+        /* Tonalidad sutil para identificar llaves */
+        .match-card.pair-tint {
+            border-left: 3px solid rgba(168, 127, 251, 0.4);
+            background: linear-gradient(90deg, rgba(168, 127, 251, 0.05) 0%, var(--card-bg) 100%);
+        }
+
+        /* Overrides para Vista Completa Forzada en Celular */
+        body.force-desktop .mobile-tabs {
+            display: none !important;
+        }
+        body.force-desktop .board-wrapper {
+            justify-content: center !important;
+            scroll-snap-type: none !important;
+            padding: 40px 20px !important;
+            overflow-x: auto !important;
+        }
+        body.force-desktop .bracket-container {
+            margin: 0 auto !important;
+            min-width: 1850px !important;
+        }
+        body.force-desktop .column {
+            width: 255px !important;
+            padding: 0 !important;
+            scroll-snap-align: none !important;
+            justify-content: space-around !important;
+        }
+        body.force-desktop .column.center {
+            width: 280px !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+        body.force-desktop .match-card {
+            margin: 10px 0 !important;
         }
