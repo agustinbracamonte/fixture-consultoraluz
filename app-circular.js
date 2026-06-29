@@ -1,25 +1,25 @@
-// Todas las fechas oficiales est├ín almacenadas usando UTC-3 (Hora Argentina) como ancla inicial. 
-        // El sistema las convertir├í a la franja elegida.
+// Todas las fechas oficiales están almacenadas usando UTC-3 (Hora Argentina) como ancla inicial. 
+        // El sistema las convertirá a la franja elegida.
         
         // Dieciseisavos de Final (Ronda de 32)
         const initialMatches = {
-            1: { teamA: { name: 'Alemania', flag: '­ƒç®­ƒç¬' }, teamB: { name: 'Paraguay', flag: '­ƒçÁ­ƒç¥' }, isoDate: '2026-06-29T17:30:00-03:00', venue: 'Boston' },
-            2: { teamA: { name: 'Francia', flag: '­ƒç½­ƒçÀ' }, teamB: { name: 'Suecia', flag: '­ƒç©­ƒç¬' }, isoDate: '2026-06-30T18:00:00-03:00', venue: 'NY/NJ' },
-            3: { teamA: { name: 'Sud├ífrica', flag: '­ƒç┐­ƒçª' }, teamB: { name: 'Canad├í', flag: '­ƒç¿­ƒçª' }, isoDate: '2026-06-28T16:00:00-03:00', venue: 'Los ├üngeles', scoreA: '0', scoreB: '1', isFinished: true },
-            4: { teamA: { name: 'Pa├¡ses Bajos', flag: '­ƒç│­ƒç▒' }, teamB: { name: 'Marruecos', flag: '­ƒç▓­ƒçª' }, isoDate: '2026-06-29T22:00:00-03:00', venue: 'Monterrey' },
-            5: { teamA: { name: 'Portugal', flag: '­ƒçÁ­ƒç╣' }, teamB: { name: 'Croacia', flag: '­ƒç¡­ƒçÀ' }, isoDate: '2026-07-02T17:00:00-03:00', venue: 'Toronto' },
-            6: { teamA: { name: 'Espa├▒a', flag: '­ƒç¬­ƒç©' }, teamB: { name: 'Austria', flag: '­ƒçª­ƒç╣' }, isoDate: '2026-07-02T16:00:00-03:00', venue: 'Los ├üngeles' },
-            7: { teamA: { name: 'Estados Unidos', flag: '­ƒç║­ƒç©' }, teamB: { name: 'Bosnia y H.', flag: '­ƒçº­ƒçª' }, isoDate: '2026-07-01T21:00:00-03:00', venue: 'Santa Clara' },
-            8: { teamA: { name: 'B├®lgica', flag: '­ƒçº­ƒç¬' }, teamB: { name: 'Senegal', flag: '­ƒç©­ƒç│' }, isoDate: '2026-07-01T17:00:00-03:00', venue: 'Seattle' },
+            1: { teamA: { name: 'Alemania', flag: '🇩🇪' }, teamB: { name: 'Paraguay', flag: '🇵🇾' }, isoDate: '2026-06-29T17:30:00-03:00', venue: 'Boston' },
+            2: { teamA: { name: 'Francia', flag: '🇫🇷' }, teamB: { name: 'Suecia', flag: '🇸🇪' }, isoDate: '2026-06-30T18:00:00-03:00', venue: 'NY/NJ' },
+            3: { teamA: { name: 'Sudáfrica', flag: '🇿🇦' }, teamB: { name: 'Canadá', flag: '🇨🇦' }, isoDate: '2026-06-28T16:00:00-03:00', venue: 'Los Ángeles', scoreA: '0', scoreB: '1', isFinished: true },
+            4: { teamA: { name: 'Países Bajos', flag: '🇳🇱' }, teamB: { name: 'Marruecos', flag: '🇲🇦' }, isoDate: '2026-06-29T22:00:00-03:00', venue: 'Monterrey' },
+            5: { teamA: { name: 'Portugal', flag: '🇵🇹' }, teamB: { name: 'Croacia', flag: '🇭🇷' }, isoDate: '2026-07-02T17:00:00-03:00', venue: 'Toronto' },
+            6: { teamA: { name: 'España', flag: '🇪🇸' }, teamB: { name: 'Austria', flag: '🇦🇹' }, isoDate: '2026-07-02T16:00:00-03:00', venue: 'Los Ángeles' },
+            7: { teamA: { name: 'Estados Unidos', flag: '🇺🇸' }, teamB: { name: 'Bosnia y H.', flag: '🇧🇦' }, isoDate: '2026-07-01T21:00:00-03:00', venue: 'Santa Clara' },
+            8: { teamA: { name: 'Bélgica', flag: '🇧🇪' }, teamB: { name: 'Senegal', flag: '🇸🇳' }, isoDate: '2026-07-01T17:00:00-03:00', venue: 'Seattle' },
             
-            9: { teamA: { name: 'Brasil', flag: '­ƒçº­ƒçÀ' }, teamB: { name: 'Jap├│n', flag: '­ƒç»­ƒçÁ' }, isoDate: '2026-06-29T14:00:00-03:00', venue: 'Houston' },
-            10: { teamA: { name: 'Costa de Marfil', flag: '­ƒç¿­ƒç«' }, teamB: { name: 'Noruega', flag: '­ƒç│­ƒç┤' }, isoDate: '2026-06-30T14:00:00-03:00', venue: 'Dallas' },
-            11: { teamA: { name: 'M├®xico', flag: '­ƒç▓­ƒç¢' }, teamB: { name: 'Ecuador', flag: '­ƒç¬­ƒç¿' }, isoDate: '2026-06-30T21:00:00-03:00', venue: 'CDMX' },
-            12: { teamA: { name: 'Inglaterra', flag: '­ƒÅ┤¾áüº¾áüó¾áüÑ¾áü«¾áüº¾áü┐' }, teamB: { name: 'RD Congo', flag: '­ƒç¿­ƒç®' }, isoDate: '2026-07-01T13:00:00-03:00', venue: 'Atlanta' },
-            13: { teamA: { name: 'Argentina', flag: '­ƒçª­ƒçÀ' }, teamB: { name: 'Cabo Verde', flag: '­ƒç¿­ƒç╗' }, isoDate: '2026-07-03T16:00:00-03:00', venue: 'Miami' },
-            14: { teamA: { name: 'Australia', flag: '­ƒçª­ƒç║' }, teamB: { name: 'Egipto', flag: '­ƒç¬­ƒç¼' }, isoDate: '2026-07-03T13:00:00-03:00', venue: 'Dallas' },
-            15: { teamA: { name: 'Suiza', flag: '­ƒç¿­ƒç¡' }, teamB: { name: 'Ir├ín', flag: '­ƒç«­ƒçÀ' }, isoDate: '2026-07-02T00:00:00-03:00', venue: 'Vancouver' },
-            16: { teamA: { name: 'Colombia', flag: '­ƒç¿­ƒç┤' }, teamB: { name: 'Ghana', flag: '­ƒç¼­ƒç¡' }, isoDate: '2026-07-03T20:30:00-03:00', venue: 'Kansas City' },
+            9: { teamA: { name: 'Brasil', flag: '🇧🇷' }, teamB: { name: 'Japón', flag: '🇯🇵' }, isoDate: '2026-06-29T14:00:00-03:00', venue: 'Houston' },
+            10: { teamA: { name: 'Costa de Marfil', flag: '🇨🇮' }, teamB: { name: 'Noruega', flag: '🇳🇴' }, isoDate: '2026-06-30T14:00:00-03:00', venue: 'Dallas' },
+            11: { teamA: { name: 'México', flag: '🇲🇽' }, teamB: { name: 'Ecuador', flag: '🇪🇨' }, isoDate: '2026-06-30T21:00:00-03:00', venue: 'CDMX' },
+            12: { teamA: { name: 'Inglaterra', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' }, teamB: { name: 'RD Congo', flag: '🇨🇩' }, isoDate: '2026-07-01T13:00:00-03:00', venue: 'Atlanta' },
+            13: { teamA: { name: 'Argentina', flag: '🇦🇷' }, teamB: { name: 'Cabo Verde', flag: '🇨🇻' }, isoDate: '2026-07-03T16:00:00-03:00', venue: 'Miami' },
+            14: { teamA: { name: 'Australia', flag: '🇦🇺' }, teamB: { name: 'Egipto', flag: '🇪🇬' }, isoDate: '2026-07-03T13:00:00-03:00', venue: 'Dallas' },
+            15: { teamA: { name: 'Suiza', flag: '🇨🇭' }, teamB: { name: 'Irán', flag: '🇮🇷' }, isoDate: '2026-07-02T00:00:00-03:00', venue: 'Vancouver' },
+            16: { teamA: { name: 'Colombia', flag: '🇨🇴' }, teamB: { name: 'Ghana', flag: '🇬🇭' }, isoDate: '2026-07-03T20:30:00-03:00', venue: 'Kansas City' },
         };
 
         // Flujo del Torneo: Octavos a Final (Con fechas y estadios exactos)
@@ -34,7 +34,7 @@
             24: { sourceA: 15, sourceB: 16, title: 'Octavos de Final', isoDate: '2026-07-07T16:00:00-03:00', venue: 'Vancouver' },
             
             25: { sourceA: 17, sourceB: 18, title: 'Cuartos de Final', isoDate: '2026-07-09T17:00:00-03:00', venue: 'Boston' },
-            26: { sourceA: 19, sourceB: 20, title: 'Cuartos de Final', isoDate: '2026-07-10T16:00:00-03:00', venue: 'Los ├üngeles' },
+            26: { sourceA: 19, sourceB: 20, title: 'Cuartos de Final', isoDate: '2026-07-10T16:00:00-03:00', venue: 'Los Ángeles' },
             27: { sourceA: 21, sourceB: 22, title: 'Cuartos de Final', isoDate: '2026-07-11T18:00:00-03:00', venue: 'Miami' },
             28: { sourceA: 23, sourceB: 24, title: 'Cuartos de Final', isoDate: '2026-07-11T22:00:00-03:00', venue: 'Kansas City' },
             
@@ -76,7 +76,7 @@
             document.body.classList.toggle('force-desktop', userForcedDesktop);
             const btn = document.querySelector('.btn-toggle-view');
             if (btn) {
-                btn.innerHTML = userForcedDesktop ? '­ƒô▒ Vista M├│vil' : '­ƒûÑ´©Å Vista Completa';
+                btn.innerHTML = userForcedDesktop ? '📱 Vista Móvil' : '🖥️ Vista Completa';
             }
             
             isMobileView = window.innerWidth <= 1024 && !userForcedDesktop;
@@ -88,7 +88,7 @@
             
             const btnCirc = document.querySelector('.btn-circular');
             if (btnCirc) {
-                btnCirc.innerHTML = isCircularView ? '­ƒöä Tradicional' : '­ƒöä Circular';
+                btnCirc.innerHTML = isCircularView ? '🔄 Tradicional' : '🔄 Circular';
             }
 
             if (!isCircularView) {
@@ -98,7 +98,7 @@
                 isMobileView = false;
                 const btnToggle = document.querySelector('.btn-toggle-view');
                 if (btnToggle) {
-                    btnToggle.innerHTML = '­ƒô▒ Vista M├│vil';
+                    btnToggle.innerHTML = '📱 Vista Móvil';
                 }
             }
             
@@ -230,17 +230,17 @@
                 
                 if (winnerTeam) {
                     el.classList.add('winner');
-                    if (winnerTeam.flag !== 'ÔØö') {
+                    if (winnerTeam.flag !== '❔') {
                         el.innerHTML = `<span style="font-size: ${size * 0.6}px">${winnerTeam.flag}</span>`;
                     }
                 }
                 
                 if (matchId === 31) {
                     el.classList.add('final-node');
-                    if (winnerTeam && winnerTeam.flag !== 'ÔØö') {
+                    if (winnerTeam && winnerTeam.flag !== '❔') {
                         el.innerHTML = `<span style="font-size: 50px">${winnerTeam.flag}</span>`;
                     } else {
-                        el.innerHTML = `<span style="font-size: 50px">­ƒÅå</span>`;
+                        el.innerHTML = `<span style="font-size: 50px">🏆</span>`;
                     }
                 }
                 
@@ -305,16 +305,16 @@
             if (!btn) btn = document.querySelector('.btn-clear');
             if (!btn.classList.contains('confirming')) {
                 btn.classList.add('confirming');
-                btn.innerHTML = 'ÔÜá´©Å ┬┐Confirmar?';
+                btn.innerHTML = '⚠️ ¿Confirmar?';
                 // Resetear de vuelta tras 3 segundos si no se vuelve a presionar
                 btn.timeoutId = setTimeout(() => {
                     btn.classList.remove('confirming');
-                    btn.innerHTML = '­ƒùæ´©Å Limpiar Fixture';
+                    btn.innerHTML = '🗑️ Limpiar Fixture';
                 }, 3000);
             } else {
                 clearTimeout(btn.timeoutId);
                 btn.classList.remove('confirming');
-                btn.innerHTML = '­ƒùæ´©Å Limpiar Fixture';
+                btn.innerHTML = '🗑️ Limpiar Fixture';
                 
                 const currentTz = state.timezone;
                 state = { scores: {}, penalties: {}, manualTeams: {}, timezone: currentTz };
@@ -329,7 +329,7 @@
             renderBracket(true);
         }
 
-        // Formateador din├ímico de Fechas basado en Zona Horaria
+        // Formateador dinámico de Fechas basado en Zona Horaria
         function formatMatchDate(isoString) {
             const date = new Date(isoString);
             const formatter = new Intl.DateTimeFormat('es-AR', {
@@ -384,7 +384,7 @@
                 try { return JSON.parse(decodeURIComponent(manualVal)); } catch(e){}
             }
 
-            return { name: 'Por definir', flag: 'ÔØö' };
+            return { name: 'Por definir', flag: '❔' };
         }
 
         function generateGoalOptions(currentVal) {
@@ -415,7 +415,7 @@
             const valA = encodeURIComponent(JSON.stringify(teamA));
             const valB = encodeURIComponent(JSON.stringify(teamB));
 
-            let optionsHtml = `<option value="">ÔØö Seleccionar...</option>`;
+            let optionsHtml = `<option value="">❔ Seleccionar...</option>`;
             
             if (teamA.name !== 'Por definir') {
                 const sel = (currentSelected.name === teamA.name) ? 'selected' : '';
@@ -436,7 +436,7 @@
                     </div>`;
             }
 
-            let displayFlag = currentSelected.name !== 'Por definir' && currentSelected.flag ? currentSelected.flag : 'ÔÜ¬';
+            let displayFlag = currentSelected.name !== 'Por definir' && currentSelected.flag ? currentSelected.flag : '⚪';
             let displayName = currentSelected.name !== 'Por definir' ? currentSelected.name : 'Seleccionar...';
 
             return `
@@ -446,7 +446,7 @@
                             <span class="flag">${displayFlag}</span>
                             <span class="team-name" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${displayName}</span>
                         </div>
-                        <span style="font-size: 0.7em; color: var(--text-muted); padding-left: 5px;">Ôû╝</span>
+                        <span style="font-size: 0.7em; color: var(--text-muted); padding-left: 5px;">▼</span>
                     </div>
                     <select class="team-select" onchange="handleManualTeam(${matchId}, '${side}', this.value)" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
                         ${optionsHtml}
@@ -518,7 +518,7 @@
                 const paths = document.querySelectorAll(`path[data-target="${id}"]`);
                 paths.forEach(p => {
                     p.classList.toggle('highlight-path', isHover);
-                    // Mover el path al final para que se dibuje por encima de los dem├ís
+                    // Mover el path al final para que se dibuje por encima de los demás
                     if (isHover && p.parentNode) p.parentNode.appendChild(p);
                     traceBackward(p.getAttribute('data-source'));
                 });
@@ -555,7 +555,7 @@
 
             let isTie = (scoreA !== '' && scoreB !== '' && scoreA === scoreB);
             
-            // L├│gica de fecha din├ímica y estadios para todos los partidos
+            // Lógica de fecha dinámica y estadios para todos los partidos
             let dateStr = "";
 
             
@@ -577,7 +577,7 @@
                 }
             }
 
-            let resetBtnHtml = isFinished ? '' : `<button class="reset-match-btn" onclick="resetMatch(${matchId})" title="Reiniciar este partido">Ôå║</button>`;
+            let resetBtnHtml = isFinished ? '' : `<button class="reset-match-btn" onclick="resetMatch(${matchId})" title="Reiniciar este partido">↺</button>`;
             let disabledAttr = isFinished ? 'disabled' : '';
 
             return `
@@ -596,7 +596,7 @@
                         </div>
                         <button class="penalty-btn ${penWinner === 'A' ? 'active' : ''}" 
                                 style="display: ${isTie ? 'flex' : 'none'};" 
-                                ${isFinished ? 'disabled' : `onclick="handlePenalty(${matchId}, 'A')"`} title="Gan├│ por penales">P</button>
+                                ${isFinished ? 'disabled' : `onclick="handlePenalty(${matchId}, 'A')"`} title="Ganó por penales">P</button>
                         <select class="goal-select" onchange="handleScoreChange(${matchId}, 'A', this.value)" ${disabledAttr}>
                             ${generateGoalOptions(String(scoreA))}
                         </select>
@@ -608,7 +608,7 @@
                         </div>
                         <button class="penalty-btn ${penWinner === 'B' ? 'active' : ''}" 
                                 style="display: ${isTie ? 'flex' : 'none'};" 
-                                ${isFinished ? 'disabled' : `onclick="handlePenalty(${matchId}, 'B')"`} title="Gan├│ por penales">P</button>
+                                ${isFinished ? 'disabled' : `onclick="handlePenalty(${matchId}, 'B')"`} title="Ganó por penales">P</button>
                         <select class="goal-select" onchange="handleScoreChange(${matchId}, 'B', this.value)" ${disabledAttr}>
                             ${generateGoalOptions(String(scoreB))}
                         </select>
@@ -655,7 +655,7 @@
                 let scale = Math.min(1, (availableWidth - 40) / unscaledWidth);
                 
                 if (userForcedDesktop && window.innerWidth <= mobileThreshold) {
-                    scale = Math.max(0.5, scale); // Mantener un tama├▒o legible en celular
+                    scale = Math.max(0.5, scale); // Mantener un tamaño legible en celular
                 }
                 
                 container.style.transformOrigin = 'top left';
@@ -664,12 +664,12 @@
                 const scaledWidth = unscaledWidth * scale;
                 
                 if (scale < 1 || (userForcedDesktop && window.innerWidth <= mobileThreshold)) {
-                    // Centrar visualmente usando m├írgenes, evitando scroll negativo
+                    // Centrar visualmente usando márgenes, evitando scroll negativo
                     let leftover = Math.max(0, availableWidth - scaledWidth);
                     let marginLeft = leftover / 2;
                     
                     if (userForcedDesktop && window.innerWidth <= mobileThreshold) {
-                        marginLeft = 20; // Solo un peque├▒o padding en m├│vil, el resto es scroll
+                        marginLeft = 20; // Solo un pequeño padding en móvil, el resto es scroll
                     }
                     
                     container.style.marginLeft = `${marginLeft}px`;
@@ -697,6 +697,105 @@
         }
 
         function renderBracket(forceRecreate = false) {
+            const container = document.getElementById('columns-wrapper');
+            
+            // Si se fuerza la recreación o el contenedor está vacío, construimos el DOM base
+            if (forceRecreate || !container || !container.children.length) {
+                container.innerHTML = '';
+                const currentLayout = isMobileView ? layoutColumnsMobile : layoutColumnsDesktop;
+
+                currentLayout.forEach((col, index) => {
+                    const columnDiv = document.createElement('div');
+                    columnDiv.className = `column ${col.class || ''} col-delay-${index}`;
+                    
+                    col.matches.forEach(item => {
+                        if (item === 'trophy') {
+                            columnDiv.innerHTML += `
+                                <div class="trophy-container">
+                                    <div style="font-weight:900; letter-spacing: 2px; color: var(--gold);">CAMPEÓN DEL MUNDO</div>
+                                    <div class="trophy">🏆</div>
+                                </div>
+                            `;
+                        } else {
+                            columnDiv.innerHTML += renderMatchCard(item);
+                        }
+                    });
+                    container.appendChild(columnDiv);
+                });
+
+                setTimeout(() => {
+                    if (window.twemoji) {
+                        twemoji.parse(document.getElementById('columns-wrapper'), {
+                            folder: 'svg',
+                            ext: '.svg'
+                        });
+                    }
+                    applyLayoutAndScale();
+                    
+                    // Redibujar y recalcular escala y altura final después de que terminen las animaciones CSS (0.8s) y la carga de imágenes
+                    setTimeout(applyLayoutAndScale, 400);
+                    setTimeout(applyLayoutAndScale, 900);
+                }, 50); 
+                return;
+            }
+
+            // Actualización incremental (evita destruir el DOM y perder el estado de desplazamiento)
+            const currentLayout = isMobileView ? layoutColumnsMobile : layoutColumnsDesktop;
+            currentLayout.forEach(col => {
+                col.matches.forEach(item => {
+                    if (item === 'trophy') return;
+
+                    const card = document.getElementById(`match-${item}`);
+                    if (!card) return;
+
+                    const scoreA = state.scores[`m${item}a`] !== undefined ? state.scores[`m${item}a`] : '';
+                    const scoreB = state.scores[`m${item}b`] !== undefined ? state.scores[`m${item}b`] : '';
+                    const penWinner = state.penalties[`m${item}`];
+                    const isTie = (scoreA !== '' && scoreB !== '' && scoreA === scoreB);
+
+                    // 1. Actualizar los selectores de equipo (por si cambiaron por clasificación)
+                    const teamRows = card.querySelectorAll('.team-row');
+                    const teamSelectorA = teamRows[0] ? teamRows[0].querySelector('.team-selector') : null;
+                    const teamSelectorB = teamRows[1] ? teamRows[1].querySelector('.team-selector') : null;
+                    if (teamSelectorA) teamSelectorA.innerHTML = renderTeamSelector(item, 'A');
+                    if (teamSelectorB) teamSelectorB.innerHTML = renderTeamSelector(item, 'B');
+
+                    // 2. Actualizar los marcadores seleccionados
+                    const selectA = teamRows[0] ? teamRows[0].querySelector('.goal-select') : null;
+                    const selectB = teamRows[1] ? teamRows[1].querySelector('.goal-select') : null;
+                    if (selectA) selectA.value = scoreA;
+                    if (selectB) selectB.value = scoreB;
+
+                    // 3. Actualizar botones de penales
+                    const penBtnA = teamRows[0] ? teamRows[0].querySelector('.penalty-btn') : null;
+                    const penBtnB = teamRows[1] ? teamRows[1].querySelector('.penalty-btn') : null;
+                    if (penBtnA) {
+                        penBtnA.style.display = isTie ? 'flex' : 'none';
+                        penBtnA.className = `penalty-btn ${penWinner === 'A' ? 'active' : ''}`;
+                    }
+                    if (penBtnB) {
+                        penBtnB.style.display = isTie ? 'flex' : 'none';
+                        penBtnB.className = `penalty-btn ${penWinner === 'B' ? 'active' : ''}`;
+                    }
+                });
+            });
+
+            // Parsear Twemoji en los selectores actualizados y redibujar líneas
+            if (window.twemoji) {
+                twemoji.parse(document.getElementById('columns-wrapper'), {
+                    folder: 'svg',
+                    ext: '.svg'
+                });
+            }
+            applyLayoutAndScale();
+        }
+
+function renderBracket(forceRecreate = false) {
+            if (isCircularView) {
+                renderCircularBracket();
+                return;
+            }
+
             const container = document.getElementById('columns-wrapper');
             
             // Si se fuerza la recreaci├│n o el contenedor est├í vac├¡o, construimos el DOM base
@@ -781,105 +880,6 @@
             });
 
             // Parsear Twemoji en los selectores actualizados y redibujar l├¡neas
-            if (window.twemoji) {
-                twemoji.parse(document.getElementById('columns-wrapper'), {
-                    folder: 'svg',
-                    ext: '.svg'
-                });
-            }
-            applyLayoutAndScale();
-        }
-
-function renderBracket(forceRecreate = false) {
-            if (isCircularView) {
-                renderCircularBracket();
-                return;
-            }
-
-            const container = document.getElementById('columns-wrapper');
-            
-            // Si se fuerza la recreaciÔö£Ôöén o el contenedor estÔö£├¡ vacÔö£┬ío, construimos el DOM base
-            if (forceRecreate || !container || !container.children.length) {
-                container.innerHTML = '';
-                const currentLayout = isMobileView ? layoutColumnsMobile : layoutColumnsDesktop;
-
-                currentLayout.forEach((col, index) => {
-                    const columnDiv = document.createElement('div');
-                    columnDiv.className = `column ${col.class || ''} col-delay-${index}`;
-                    
-                    col.matches.forEach(item => {
-                        if (item === 'trophy') {
-                            columnDiv.innerHTML += `
-                                <div class="trophy-container">
-                                    <div style="font-weight:900; letter-spacing: 2px; color: var(--gold);">CAMPEÔö£├┤N DEL MUNDO</div>
-                                    <div class="trophy">┬¡ãÆ├à├Ñ</div>
-                                </div>
-                            `;
-                        } else {
-                            columnDiv.innerHTML += renderMatchCard(item);
-                        }
-                    });
-                    container.appendChild(columnDiv);
-                });
-
-                setTimeout(() => {
-                    if (window.twemoji) {
-                        twemoji.parse(document.getElementById('columns-wrapper'), {
-                            folder: 'svg',
-                            ext: '.svg'
-                        });
-                    }
-                    applyLayoutAndScale();
-                    
-                    // Redibujar y recalcular escala y altura final despuÔö£┬«s de que terminen las animaciones CSS (0.8s) y la carga de imÔö£├¡genes
-                    setTimeout(applyLayoutAndScale, 400);
-                    setTimeout(applyLayoutAndScale, 900);
-                }, 50); 
-                return;
-            }
-
-            // ActualizaciÔö£Ôöén incremental (evita destruir el DOM y perder el estado de desplazamiento)
-            const currentLayout = isMobileView ? layoutColumnsMobile : layoutColumnsDesktop;
-            currentLayout.forEach(col => {
-                col.matches.forEach(item => {
-                    if (item === 'trophy') return;
-
-                    const card = document.getElementById(`match-${item}`);
-                    if (!card) return;
-
-                    const scoreA = state.scores[`m${item}a`] !== undefined ? state.scores[`m${item}a`] : '';
-                    const scoreB = state.scores[`m${item}b`] !== undefined ? state.scores[`m${item}b`] : '';
-                    const penWinner = state.penalties[`m${item}`];
-                    const isTie = (scoreA !== '' && scoreB !== '' && scoreA === scoreB);
-
-                    // 1. Actualizar los selectores de equipo (por si cambiaron por clasificaciÔö£Ôöén)
-                    const teamRows = card.querySelectorAll('.team-row');
-                    const teamSelectorA = teamRows[0] ? teamRows[0].querySelector('.team-selector') : null;
-                    const teamSelectorB = teamRows[1] ? teamRows[1].querySelector('.team-selector') : null;
-                    if (teamSelectorA) teamSelectorA.innerHTML = renderTeamSelector(item, 'A');
-                    if (teamSelectorB) teamSelectorB.innerHTML = renderTeamSelector(item, 'B');
-
-                    // 2. Actualizar los marcadores seleccionados
-                    const selectA = teamRows[0] ? teamRows[0].querySelector('.goal-select') : null;
-                    const selectB = teamRows[1] ? teamRows[1].querySelector('.goal-select') : null;
-                    if (selectA) selectA.value = scoreA;
-                    if (selectB) selectB.value = scoreB;
-
-                    // 3. Actualizar botones de penales
-                    const penBtnA = teamRows[0] ? teamRows[0].querySelector('.penalty-btn') : null;
-                    const penBtnB = teamRows[1] ? teamRows[1].querySelector('.penalty-btn') : null;
-                    if (penBtnA) {
-                        penBtnA.style.display = isTie ? 'flex' : 'none';
-                        penBtnA.className = `penalty-btn ${penWinner === 'A' ? 'active' : ''}`;
-                    }
-                    if (penBtnB) {
-                        penBtnB.style.display = isTie ? 'flex' : 'none';
-                        penBtnB.className = `penalty-btn ${penWinner === 'B' ? 'active' : ''}`;
-                    }
-                });
-            });
-
-            // Parsear Twemoji en los selectores actualizados y redibujar lÔö£┬íneas
             if (window.twemoji) {
                 twemoji.parse(document.getElementById('columns-wrapper'), {
                     folder: 'svg',
@@ -980,7 +980,7 @@ function renderBracket(forceRecreate = false) {
             applyLayoutAndScale();
         });
 
-        // Tabs MÔö£Ôöéviles
+        // Tabs M├│viles
         window.scrollToColumn = function(index) {
             const columns = document.querySelectorAll('.column');
             if (columns[index]) {
@@ -1021,7 +1021,7 @@ function renderBracket(forceRecreate = false) {
             else if (window.colObserver) window.colObserver.disconnect();
         };
 
-        // Deslizamiento tÔö£├¡ctil en PC
+        // Deslizamiento t├íctil en PC
         const slider = document.getElementById('scroll-area');
         let isDown = false;
         let startX;
