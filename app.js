@@ -529,10 +529,27 @@
 
                     // 1. Actualizar los selectores de equipo (por si cambiaron por clasificación)
                     const teamRows = card.querySelectorAll('.team-row');
-                    const teamSelectorA = teamRows[0] ? teamRows[0].querySelector('.team-selector') : null;
-                    const teamSelectorB = teamRows[1] ? teamRows[1].querySelector('.team-selector') : null;
-                    if (teamSelectorA) teamSelectorA.innerHTML = renderTeamSelector(item, 'A');
-                    if (teamSelectorB) teamSelectorB.innerHTML = renderTeamSelector(item, 'B');
+                    if (item > 16) {
+                        const teamSelectorA = teamRows[0] ? teamRows[0].querySelector('.team-selector') : null;
+                        const teamSelectorB = teamRows[1] ? teamRows[1].querySelector('.team-selector') : null;
+                        
+                        if (teamSelectorA) {
+                            const newHtmlA = renderTeamSelector(item, 'A');
+                            if (teamSelectorA.getAttribute('data-raw') !== newHtmlA) {
+                                teamSelectorA.innerHTML = newHtmlA;
+                                teamSelectorA.setAttribute('data-raw', newHtmlA);
+                                if (window.twemoji) twemoji.parse(teamSelectorA, { folder: 'svg', ext: '.svg' });
+                            }
+                        }
+                        if (teamSelectorB) {
+                            const newHtmlB = renderTeamSelector(item, 'B');
+                            if (teamSelectorB.getAttribute('data-raw') !== newHtmlB) {
+                                teamSelectorB.innerHTML = newHtmlB;
+                                teamSelectorB.setAttribute('data-raw', newHtmlB);
+                                if (window.twemoji) twemoji.parse(teamSelectorB, { folder: 'svg', ext: '.svg' });
+                            }
+                        }
+                    }
 
                     // 2. Actualizar los marcadores seleccionados
                     const selectA = teamRows[0] ? teamRows[0].querySelector('.goal-select') : null;
@@ -554,13 +571,7 @@
                 });
             });
 
-            // Parsear Twemoji en los selectores actualizados y redibujar líneas
-            if (window.twemoji) {
-                twemoji.parse(document.getElementById('columns-wrapper'), {
-                    folder: 'svg',
-                    ext: '.svg'
-                });
-            }
+            // Redibujar líneas y re-escalar
             applyLayoutAndScale();
         }
 
