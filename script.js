@@ -100,14 +100,14 @@
                 const currentTz = state.timezone;
                 state = { scores: {}, penalties: {}, manualTeams: {}, timezone: currentTz };
                 saveData();
-                renderBracket();
+                renderBracket(true);
             }
         }
 
         function changeTimezone(newTz) {
             state.timezone = newTz;
             saveData();
-            renderBracket();
+            renderBracket(true);
         }
 
         // Formateador dinámico de Fechas basado en Zona Horaria
@@ -316,7 +316,7 @@
             
             if (isNowMobile !== isMobileView) {
                 isMobileView = isNowMobile;
-                renderBracket();
+                renderBracket(true);
                 return; // renderBracket calls applyLayoutAndScale again via setTimeout
             }
 
@@ -351,44 +351,97 @@
             drawSVGConnectorLines();
         }
 
-        function renderBracket() {
+        function renderBracket(forceRecreate = false) {
             const container = document.getElementById('columns-wrapper');
-            container.innerHTML = '';
+            
+            // Si se fuerza la recreación o el contenedor está vacío, construimos el DOM base
+            if (forceRecreate || !container || !container.children.length) {
+                container.innerHTML = '';
+                const currentLayout = isMobileView ? layoutColumnsMobile : layoutColumnsDesktop;
 
+                currentLayout.forEach((col, index) => {
+                    const columnDiv = document.createElement('div');
+                    columnDiv.className = `column ${col.class || ''} col-delay-${index}`;
+                    
+                    col.matches.forEach(item => {
+                        if (item === 'trophy') {
+                            columnDiv.innerHTML += `
+                                <div class="trophy-container">
+                                    <div style="font-weight:900; letter-spacing: 2px; color: var(--gold);">CAMPEÓN DEL MUNDO</div>
+                                    <div class="trophy">🏆</div>
+                                </div>
+                            `;
+                        } else {
+                            columnDiv.innerHTML += renderMatchCard(item);
+                        }
+                    });
+                    container.appendChild(columnDiv);
+                });
+
+                setTimeout(() => {
+                    if (window.twemoji) {
+                        twemoji.parse(document.getElementById('columns-wrapper'), {
+                            folder: 'svg',
+                            ext: '.svg'
+                        });
+                    }
+                    applyLayoutAndScale();
+                    
+                    // Redibujar y recalcular escala y altura final después de que terminen las animaciones CSS (0.8s) y la carga de imágenes
+                    setTimeout(applyLayoutAndScale, 400);
+                    setTimeout(applyLayoutAndScale, 900);
+                }, 50); 
+                return;
+            }
+
+            // Actualización incremental (evita destruir el DOM y perder el estado de desplazamiento)
             const currentLayout = isMobileView ? layoutColumnsMobile : layoutColumnsDesktop;
-
-            currentLayout.forEach((col, index) => {
-                const columnDiv = document.createElement('div');
-                columnDiv.className = `column ${col.class || ''} col-delay-${index}`;
-
+            currentLayout.forEach(col => {
                 col.matches.forEach(item => {
-                    if (item === 'trophy') {
-                        columnDiv.innerHTML += `
-                            <div class="trophy-container">
-                                <div style="font-weight:900; letter-spacing: 2px; color: var(--gold);">CAMPEÓN DEL MUNDO</div>
-                                <div class="trophy">🏆</div>
-                            </div>
-                        `;
-                    } else {
-                        columnDiv.innerHTML += renderMatchCard(item);
+                    if (item === 'trophy') return;
+
+                    const card = document.getElementById(`match-${item}`);
+                    if (!card) return;
+
+                    const scoreA = state.scores[`m${item}a`] !== undefined ? state.scores[`m${item}a`] : '';
+                    const scoreB = state.scores[`m${item}b`] !== undefined ? state.scores[`m${item}b`] : '';
+                    const penWinner = state.penalties[`m${item}`];
+                    const isTie = (scoreA !== '' && scoreB !== '' && scoreA === scoreB);
+
+                    // 1. Actualizar los selectores de equipo (por si cambiaron por clasificación)
+                    const teamSelectorA = card.querySelector('.team-row:nth-of-type(1) .team-selector');
+                    const teamSelectorB = card.querySelector('.team-row:nth-of-type(2) .team-selector');
+                    if (teamSelectorA) teamSelectorA.innerHTML = renderTeamSelector(item, 'A');
+                    if (teamSelectorB) teamSelectorB.innerHTML = renderTeamSelector(item, 'B');
+
+                    // 2. Actualizar los marcadores seleccionados
+                    const selectA = card.querySelector('.team-row:nth-of-type(1) .goal-select');
+                    const selectB = card.querySelector('.team-row:nth-of-type(2) .goal-select');
+                    if (selectA) selectA.value = scoreA;
+                    if (selectB) selectB.value = scoreB;
+
+                    // 3. Actualizar botones de penales
+                    const penBtnA = card.querySelector('.team-row:nth-of-type(1) .penalty-btn');
+                    const penBtnB = card.querySelector('.team-row:nth-of-type(2) .penalty-btn');
+                    if (penBtnA) {
+                        penBtnA.style.display = isTie ? 'flex' : 'none';
+                        penBtnA.className = `penalty-btn ${penWinner === 'A' ? 'active' : ''}`;
+                    }
+                    if (penBtnB) {
+                        penBtnB.style.display = isTie ? 'flex' : 'none';
+                        penBtnB.className = `penalty-btn ${penWinner === 'B' ? 'active' : ''}`;
                     }
                 });
-                container.appendChild(columnDiv);
             });
 
-            setTimeout(() => {
-                if (window.twemoji) {
-                    twemoji.parse(document.getElementById('columns-wrapper'), {
-                        folder: 'svg',
-                        ext: '.svg'
-                    });
-                }
-                applyLayoutAndScale();
-                
-                // Redibujar y recalcular escala y altura final después de que terminen las animaciones CSS (0.8s) y la carga de imágenes
-                setTimeout(applyLayoutAndScale, 400);
-                setTimeout(applyLayoutAndScale, 900);
-            }, 50); 
+            // Parsear Twemoji en los selectores actualizados y redibujar líneas
+            if (window.twemoji) {
+                twemoji.parse(document.getElementById('columns-wrapper'), {
+                    folder: 'svg',
+                    ext: '.svg'
+                });
+            }
+            applyLayoutAndScale();
         }
 
         function getRelativeCoords(elem, container) {
@@ -555,4 +608,4 @@
         });
 
         // Inicio
-        document.addEventListener('DOMContentLoaded', renderBracket);
+        document.addEventListener('DOMContentLoaded', () => renderBracket(true));
