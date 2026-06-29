@@ -257,30 +257,12 @@
             
             saveData();
             renderBracket();
-            
-            setTimeout(() => {
-                const card = document.getElementById(`match-${matchId}`);
-                if (card) {
-                    card.classList.remove('animate-pop');
-                    void card.offsetWidth;
-                    card.classList.add('animate-pop');
-                }
-            }, 60);
         }
 
         window.handlePenalty = function(matchId, winnerStr) {
             state.penalties[`m${matchId}`] = winnerStr;
             saveData();
             renderBracket();
-            
-            setTimeout(() => {
-                const card = document.getElementById(`match-${matchId}`);
-                if (card) {
-                    card.classList.remove('animate-pop');
-                    void card.offsetWidth;
-                    card.classList.add('animate-pop');
-                }
-            }, 60);
         }
 
         window.handleManualTeam = function(matchId, side, encodedObj) {
@@ -671,8 +653,12 @@
             });
         }
 
+        let lastInnerWidth = window.innerWidth;
         window.addEventListener('resize', () => {
-            applyLayoutAndScale();
+            if (window.innerWidth !== lastInnerWidth) {
+                lastInnerWidth = window.innerWidth;
+                applyLayoutAndScale();
+            }
         });
 
         // Tabs Móviles
