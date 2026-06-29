@@ -51,8 +51,7 @@
                 </select>
             </div>
             <div class="controls">
-                <button class="btn-toggle-view" onclick="toggleView()">🖥️ Vista Completa</button>
-                <a href="circular.html" class="btn-circular" style="text-decoration: none;">🔄 Circular</a>
+                <a href="index.html" class="btn-circular" style="text-decoration: none;">⬅️ Volver al Tradicional</a>
                 <button class="btn-clear" onclick="resetFixture(this)">🗑️ Limpiar Fixture</button>
             </div>
         </div>
@@ -68,14 +67,25 @@
     </nav>
 
     <div class="board-wrapper" id="scroll-area">
-        <div class="bracket-container" id="bracket-board">
+        <div id="bracket-board" class="bracket-container" style="display: none;">
             <svg id="lines-svg"></svg>
-            <div id="columns-wrapper" style="display: flex; width: 100%; justify-content: space-between; gap: 40px; z-index: 2;">
-                <!-- Columnas renderizadas dinámicamente -->
-            </div>
+            <div id="columns-wrapper" style="display: flex; width: 100%; justify-content: space-between;"></div>
+        </div>
+        
+        <!-- Contenedor Circular -->
+        <div id="circular-wrapper" style="position: relative; top: 0; left: 0; width: 2000px; height: 2000px; z-index: 3;">
+            <!-- Nodos circulares HTML renderizados dinámicamente -->
         </div>
     </div>
 
-    <script src="app.js?v=2.1.5"></script>
+    <!-- Modal para interacciones en vista circular -->
+    <div id="match-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeMatchModal()">✖</button>
+            <div id="modal-match-container"></div>
+        </div>
+    </div>
+
+    <script src="app-circular.js?v=2.3.0"></script>
 </body>
 </html>
