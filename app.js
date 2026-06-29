@@ -290,6 +290,28 @@
             renderBracket();
         }
 
+        window.handleMatchHover = function(matchId, isHover) {
+            function traceBackward(id) {
+                const paths = document.querySelectorAll(`path[data-target="${id}"]`);
+                paths.forEach(p => {
+                    p.classList.toggle('highlight-path', isHover);
+                    // Mover el path al final para que se dibuje por encima de los demás
+                    if (isHover && p.parentNode) p.parentNode.appendChild(p);
+                    traceBackward(p.getAttribute('data-source'));
+                });
+            }
+            function traceForward(id) {
+                const paths = document.querySelectorAll(`path[data-source="${id}"]`);
+                paths.forEach(p => {
+                    p.classList.toggle('highlight-path', isHover);
+                    if (isHover && p.parentNode) p.parentNode.appendChild(p);
+                    traceForward(p.getAttribute('data-target'));
+                });
+            }
+            traceBackward(matchId);
+            traceForward(matchId);
+        };
+
         window.resetMatch = function(matchId) {
             delete state.scores[`m${matchId}a`];
             delete state.scores[`m${matchId}b`];
@@ -336,7 +358,9 @@
             let disabledAttr = isFinished ? 'disabled' : '';
 
             return `
-                <div class="match-card ${finalClass} ${pairClass}" id="match-${matchId}">
+                <div class="match-card ${finalClass} ${pairClass}" id="match-${matchId}"
+                     onmouseenter="handleMatchHover(${matchId}, true)" 
+                     onmouseleave="handleMatchHover(${matchId}, false)">
                     <div class="match-header">
                         ${dateStr}
                         ${resetBtnHtml}
@@ -578,6 +602,8 @@
                     path.setAttribute('stroke', '#4a4b62'); 
                     path.setAttribute('stroke-width', '2');
                     path.setAttribute('class', 'svg-line');
+                    path.setAttribute('data-source', sourceId);
+                    path.setAttribute('data-target', targetId);
                     
                     svg.appendChild(path);
                     

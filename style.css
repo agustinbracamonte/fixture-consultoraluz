@@ -455,7 +455,13 @@
         }
 
         .svg-line {
-            transition: stroke-dashoffset 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: stroke 0.3s, stroke-width 0.3s, stroke-dashoffset 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .svg-line.highlight-path {
+            stroke: var(--brand) !important;
+            stroke-width: 3px !important;
+            filter: drop-shadow(0 0 5px rgba(168, 127, 251, 0.6));
         }
 
         ::-webkit-scrollbar { height: 10px; width: 10px; }
