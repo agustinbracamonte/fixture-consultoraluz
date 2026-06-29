@@ -156,6 +156,7 @@
         .board-wrapper {
             width: 100%;
             overflow-x: auto;
+            overflow-y: hidden;
             -webkit-overflow-scrolling: touch;
             padding: 40px 20px;
             box-sizing: border-box;

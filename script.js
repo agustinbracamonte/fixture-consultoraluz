@@ -385,9 +385,9 @@
                 }
                 applyLayoutAndScale();
                 
-                // Redibujar después de que terminen las animaciones CSS (0.8s) y la carga de imágenes
-                setTimeout(drawSVGConnectorLines, 400);
-                setTimeout(drawSVGConnectorLines, 900);
+                // Redibujar y recalcular escala y altura final después de que terminen las animaciones CSS (0.8s) y la carga de imágenes
+                setTimeout(applyLayoutAndScale, 400);
+                setTimeout(applyLayoutAndScale, 900);
             }, 50); 
         }
 
