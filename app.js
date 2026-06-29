@@ -351,11 +351,15 @@
             drawSVGConnectorLines();
         }
 
-        function renderBracket(forceRecreate = false) {
+        function renderBracket() {
             const container = document.getElementById('columns-wrapper');
+            const scrollArea = document.getElementById('scroll-area');
             
-            // Si se fuerza la recreación o el contenedor está vacío, construimos el DOM base
-            if (forceRecreate || !container || !container.children.length) {
+            // Guardar posición de scroll
+            const scrollTop = scrollArea ? scrollArea.scrollTop : 0;
+            const scrollLeft = scrollArea ? scrollArea.scrollLeft : 0;
+            
+            if (container) {
                 container.innerHTML = '';
                 const currentLayout = isMobileView ? layoutColumnsMobile : layoutColumnsDesktop;
 
@@ -378,70 +382,24 @@
                     container.appendChild(columnDiv);
                 });
 
+                if (window.twemoji) {
+                    twemoji.parse(document.getElementById('columns-wrapper'), {
+                        folder: 'svg',
+                        ext: '.svg'
+                    });
+                }
+                
+                applyLayoutAndScale();
+                
+                // Redibujar después de un momento para asegurar que el DOM se haya repintado
                 setTimeout(() => {
-                    if (window.twemoji) {
-                        twemoji.parse(document.getElementById('columns-wrapper'), {
-                            folder: 'svg',
-                            ext: '.svg'
-                        });
-                    }
                     applyLayoutAndScale();
-                    
-                    // Redibujar y recalcular escala y altura final después de que terminen las animaciones CSS (0.8s) y la carga de imágenes
-                    setTimeout(applyLayoutAndScale, 400);
-                    setTimeout(applyLayoutAndScale, 900);
-                }, 50); 
-                return;
-            }
-
-            // Actualización incremental (evita destruir el DOM y perder el estado de desplazamiento)
-            const currentLayout = isMobileView ? layoutColumnsMobile : layoutColumnsDesktop;
-            currentLayout.forEach(col => {
-                col.matches.forEach(item => {
-                    if (item === 'trophy') return;
-
-                    const card = document.getElementById(`match-${item}`);
-                    if (!card) return;
-
-                    const scoreA = state.scores[`m${item}a`] !== undefined ? state.scores[`m${item}a`] : '';
-                    const scoreB = state.scores[`m${item}b`] !== undefined ? state.scores[`m${item}b`] : '';
-                    const penWinner = state.penalties[`m${item}`];
-                    const isTie = (scoreA !== '' && scoreB !== '' && scoreA === scoreB);
-
-                    // 1. Actualizar los selectores de equipo (por si cambiaron por clasificación)
-                    const teamSelectorA = card.querySelector('.team-row:nth-of-type(1) .team-selector');
-                    const teamSelectorB = card.querySelector('.team-row:nth-of-type(2) .team-selector');
-                    if (teamSelectorA) teamSelectorA.innerHTML = renderTeamSelector(item, 'A');
-                    if (teamSelectorB) teamSelectorB.innerHTML = renderTeamSelector(item, 'B');
-
-                    // 2. Actualizar los marcadores seleccionados
-                    const selectA = card.querySelector('.team-row:nth-of-type(1) .goal-select');
-                    const selectB = card.querySelector('.team-row:nth-of-type(2) .goal-select');
-                    if (selectA) selectA.value = scoreA;
-                    if (selectB) selectB.value = scoreB;
-
-                    // 3. Actualizar botones de penales
-                    const penBtnA = card.querySelector('.team-row:nth-of-type(1) .penalty-btn');
-                    const penBtnB = card.querySelector('.team-row:nth-of-type(2) .penalty-btn');
-                    if (penBtnA) {
-                        penBtnA.style.display = isTie ? 'flex' : 'none';
-                        penBtnA.className = `penalty-btn ${penWinner === 'A' ? 'active' : ''}`;
+                    if (scrollArea) {
+                        scrollArea.scrollTop = scrollTop;
+                        scrollArea.scrollLeft = scrollLeft;
                     }
-                    if (penBtnB) {
-                        penBtnB.style.display = isTie ? 'flex' : 'none';
-                        penBtnB.className = `penalty-btn ${penWinner === 'B' ? 'active' : ''}`;
-                    }
-                });
-            });
-
-            // Parsear Twemoji en los selectores actualizados y redibujar líneas
-            if (window.twemoji) {
-                twemoji.parse(document.getElementById('columns-wrapper'), {
-                    folder: 'svg',
-                    ext: '.svg'
-                });
+                }, 50);
             }
-            applyLayoutAndScale();
         }
 
         function getRelativeCoords(elem, container) {
