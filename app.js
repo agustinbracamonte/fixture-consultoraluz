@@ -376,7 +376,10 @@
                 // Adjust height of wrapper based on scaled container
                 const rect = container.getBoundingClientRect();
                 wrapper.style.height = `${rect.height + 80}px`; // force wrapper to shrink to scaled height
-                wrapper.style.overflowX = 'hidden'; // Hide extra layout space caused by scale
+                
+                // Allow scrolling and grabbing regardless of scale
+                wrapper.style.overflowX = 'auto';
+                wrapper.style.cursor = 'grab';
             }
             drawSVGConnectorLines();
         }
@@ -622,7 +625,6 @@
                     scale = Math.sqrt(parseFloat(parts[0])**2 + parseFloat(parts[1])**2);
                 }
             } catch(err) {}
-            if (scale < 0.99) return;
 
             isDown = true;
             startX = e.pageX - slider.offsetLeft;
