@@ -198,11 +198,11 @@
             
             if (teamA.name !== 'Por definir') {
                 const sel = (currentSelected.name === teamA.name) ? 'selected' : '';
-                optionsHtml += `<option value="${valA}" ${sel}>${teamA.flag} ${teamA.name}</option>`;
+                optionsHtml += `<option value="${valA}" ${sel}>${teamA.name}</option>`;
             }
             if (teamB.name !== 'Por definir') {
                 const sel = (currentSelected.name === teamB.name) ? 'selected' : '';
-                optionsHtml += `<option value="${valB}" ${sel}>${teamB.flag} ${teamB.name}</option>`;
+                optionsHtml += `<option value="${valB}" ${sel}>${teamB.name}</option>`;
             }
 
             const isLocked = getWinnerFromScore(sourceId) !== null;
@@ -258,6 +258,16 @@
             renderBracket();
         }
 
+        window.resetMatch = function(matchId) {
+            delete state.scores[`m${matchId}a`];
+            delete state.scores[`m${matchId}b`];
+            delete state.penalties[`m${matchId}`];
+            delete state.manualTeams[`m${matchId}A`];
+            delete state.manualTeams[`m${matchId}B`];
+            saveData();
+            renderBracket();
+        }
+
         function renderMatchCard(matchId) {
             let scoreA = state.scores[`m${matchId}a`] !== undefined ? state.scores[`m${matchId}a`] : '';
             let scoreB = state.scores[`m${matchId}b`] !== undefined ? state.scores[`m${matchId}b`] : '';
@@ -281,7 +291,10 @@
 
             return `
                 <div class="match-card ${finalClass}" id="match-${matchId}">
-                    <div class="match-header">${dateStr}</div>
+                    <div class="match-header">
+                        ${dateStr}
+                        <button class="reset-match-btn" onclick="resetMatch(${matchId})" title="Reiniciar este partido">↺</button>
+                    </div>
                     
                     <div class="team-row">
                         <div class="team-selector">
@@ -351,15 +364,11 @@
             drawSVGConnectorLines();
         }
 
-        function renderBracket() {
+        function renderBracket(forceRecreate = false) {
             const container = document.getElementById('columns-wrapper');
-            const scrollArea = document.getElementById('scroll-area');
             
-            // Guardar posición de scroll
-            const scrollTop = scrollArea ? scrollArea.scrollTop : 0;
-            const scrollLeft = scrollArea ? scrollArea.scrollLeft : 0;
-            
-            if (container) {
+            // Si se fuerza la recreación o el contenedor está vacío, construimos el DOM base
+            if (forceRecreate || !container || !container.children.length) {
                 container.innerHTML = '';
                 const currentLayout = isMobileView ? layoutColumnsMobile : layoutColumnsDesktop;
 
@@ -382,24 +391,71 @@
                     container.appendChild(columnDiv);
                 });
 
-                if (window.twemoji) {
-                    twemoji.parse(document.getElementById('columns-wrapper'), {
-                        folder: 'svg',
-                        ext: '.svg'
-                    });
-                }
-                
-                applyLayoutAndScale();
-                
-                // Redibujar después de un momento para asegurar que el DOM se haya repintado
                 setTimeout(() => {
-                    applyLayoutAndScale();
-                    if (scrollArea) {
-                        scrollArea.scrollTop = scrollTop;
-                        scrollArea.scrollLeft = scrollLeft;
+                    if (window.twemoji) {
+                        twemoji.parse(document.getElementById('columns-wrapper'), {
+                            folder: 'svg',
+                            ext: '.svg'
+                        });
                     }
-                }, 50);
+                    applyLayoutAndScale();
+                    
+                    // Redibujar y recalcular escala y altura final después de que terminen las animaciones CSS (0.8s) y la carga de imágenes
+                    setTimeout(applyLayoutAndScale, 400);
+                    setTimeout(applyLayoutAndScale, 900);
+                }, 50); 
+                return;
             }
+
+            // Actualización incremental (evita destruir el DOM y perder el estado de desplazamiento)
+            const currentLayout = isMobileView ? layoutColumnsMobile : layoutColumnsDesktop;
+            currentLayout.forEach(col => {
+                col.matches.forEach(item => {
+                    if (item === 'trophy') return;
+
+                    const card = document.getElementById(`match-${item}`);
+                    if (!card) return;
+
+                    const scoreA = state.scores[`m${item}a`] !== undefined ? state.scores[`m${item}a`] : '';
+                    const scoreB = state.scores[`m${item}b`] !== undefined ? state.scores[`m${item}b`] : '';
+                    const penWinner = state.penalties[`m${item}`];
+                    const isTie = (scoreA !== '' && scoreB !== '' && scoreA === scoreB);
+
+                    // 1. Actualizar los selectores de equipo (por si cambiaron por clasificación)
+                    const teamRows = card.querySelectorAll('.team-row');
+                    const teamSelectorA = teamRows[0] ? teamRows[0].querySelector('.team-selector') : null;
+                    const teamSelectorB = teamRows[1] ? teamRows[1].querySelector('.team-selector') : null;
+                    if (teamSelectorA) teamSelectorA.innerHTML = renderTeamSelector(item, 'A');
+                    if (teamSelectorB) teamSelectorB.innerHTML = renderTeamSelector(item, 'B');
+
+                    // 2. Actualizar los marcadores seleccionados
+                    const selectA = teamRows[0] ? teamRows[0].querySelector('.goal-select') : null;
+                    const selectB = teamRows[1] ? teamRows[1].querySelector('.goal-select') : null;
+                    if (selectA) selectA.value = scoreA;
+                    if (selectB) selectB.value = scoreB;
+
+                    // 3. Actualizar botones de penales
+                    const penBtnA = teamRows[0] ? teamRows[0].querySelector('.penalty-btn') : null;
+                    const penBtnB = teamRows[1] ? teamRows[1].querySelector('.penalty-btn') : null;
+                    if (penBtnA) {
+                        penBtnA.style.display = isTie ? 'flex' : 'none';
+                        penBtnA.className = `penalty-btn ${penWinner === 'A' ? 'active' : ''}`;
+                    }
+                    if (penBtnB) {
+                        penBtnB.style.display = isTie ? 'flex' : 'none';
+                        penBtnB.className = `penalty-btn ${penWinner === 'B' ? 'active' : ''}`;
+                    }
+                });
+            });
+
+            // Parsear Twemoji en los selectores actualizados y redibujar líneas
+            if (window.twemoji) {
+                twemoji.parse(document.getElementById('columns-wrapper'), {
+                    folder: 'svg',
+                    ext: '.svg'
+                });
+            }
+            applyLayoutAndScale();
         }
 
         function getRelativeCoords(elem, container) {
