@@ -585,7 +585,7 @@
             display: none !important;
         }
         body.force-desktop .board-wrapper {
-            justify-content: center !important;
+            justify-content: flex-start !important;
             scroll-snap-type: none !important;
             padding: 40px 20px !important;
             overflow-x: auto !important;

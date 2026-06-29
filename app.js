@@ -416,7 +416,6 @@
                 wrapper.style.overflowX = 'auto';
             } else {
                 container.style.minWidth = '1850px';
-                wrapper.style.justifyContent = 'center';
                 
                 // Resetear la altura del contenedor para calcular su altura real no restringida
                 wrapper.style.height = 'auto';
@@ -426,6 +425,11 @@
                 let scale = Math.min(1, (availableWidth - 40) / 1850);
                 if (userForcedDesktop && window.innerWidth <= mobileThreshold) {
                     scale = Math.max(0.5, scale); // Mantener un tamaño legible en celular
+                    container.style.transformOrigin = 'top left';
+                    wrapper.style.justifyContent = 'flex-start';
+                } else {
+                    container.style.transformOrigin = 'top center';
+                    wrapper.style.justifyContent = 'center';
                 }
                 container.style.transform = `scale(${scale})`;
                 
