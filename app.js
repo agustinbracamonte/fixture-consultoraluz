@@ -206,14 +206,31 @@
             }
 
             const isLocked = getWinnerFromScore(sourceId) !== null;
+            
+            if (isLocked && currentSelected && currentSelected.name !== 'Por definir') {
+                return `
+                    <div class="team-display">
+                        <span class="flag">${currentSelected.flag}</span>
+                        <span class="team-name">${currentSelected.name}</span>
+                    </div>`;
+            }
+
+            let displayFlag = currentSelected.name !== 'Por definir' && currentSelected.flag ? currentSelected.flag : '⚪';
+            let displayName = currentSelected.name !== 'Por definir' ? currentSelected.name : 'Seleccionar...';
 
             return `
-                <select class="team-select" 
-                        onchange="handleManualTeam(${matchId}, '${side}', this.value)"
-                        ${isLocked ? 'disabled' : ''}>
-                    ${optionsHtml}
-                </select>
-            `;
+                <div style="position: relative; width: 100%; display: flex;">
+                    <div class="team-display" style="justify-content: space-between; flex: 1;">
+                        <div style="display: flex; align-items: center; gap: 8px; overflow: hidden;">
+                            <span class="flag">${displayFlag}</span>
+                            <span class="team-name" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${displayName}</span>
+                        </div>
+                        <span style="font-size: 0.7em; color: var(--text-muted); padding-left: 5px;">▼</span>
+                    </div>
+                    <select class="team-select" onchange="handleManualTeam(${matchId}, '${side}', this.value)" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
+                        ${optionsHtml}
+                    </select>
+                </div>`;
         }
 
         // Manejadores globales
