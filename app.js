@@ -614,12 +614,14 @@
             const container = document.getElementById('bracket-board');
             if (!svg || !container) return;
 
-            // Limpiamos atributos de viewBox que causan escalado interno incorrecto
+            // Fijamos dimensiones exactas en pixeles para evitar recortes del compositor en móviles
+            const scrollW = container.scrollWidth;
+            const scrollH = container.scrollHeight;
             svg.removeAttribute('viewBox');
-            svg.removeAttribute('width');
-            svg.removeAttribute('height');
-            svg.style.width = '100%';
-            svg.style.height = '100%';
+            svg.setAttribute('width', scrollW);
+            svg.setAttribute('height', scrollH);
+            svg.style.width = scrollW + 'px';
+            svg.style.height = scrollH + 'px';
 
             svg.innerHTML = '';
 
