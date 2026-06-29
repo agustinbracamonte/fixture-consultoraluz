@@ -570,9 +570,6 @@
                     }
                 });
             });
-
-            // Redibujar líneas y re-escalar
-            applyLayoutAndScale();
         }
 
         function getRelativeCoords(elem, container) {
