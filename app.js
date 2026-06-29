@@ -449,6 +449,17 @@
                 }
                 container.style.transform = `scale(${scale})`;
                 
+                // Fix para el scroll infinito: si está escalado desde top left, eliminamos el espacio vacío
+                if (scale < 1 && userForcedDesktop && window.innerWidth <= mobileThreshold) {
+                    const emptySpace = container.scrollWidth - (container.scrollWidth * scale);
+                    const emptyHeight = container.scrollHeight - (container.scrollHeight * scale);
+                    container.style.marginRight = `-${emptySpace}px`;
+                    container.style.marginBottom = `-${emptyHeight}px`;
+                } else {
+                    container.style.marginRight = '0px';
+                    container.style.marginBottom = '0px';
+                }
+                
                 // Adjust height of wrapper based on scaled container
                 const rect = container.getBoundingClientRect();
                 wrapper.style.height = `${rect.height + 80}px`; // force wrapper to shrink to scaled height
@@ -585,6 +596,13 @@
             const svg = document.getElementById('lines-svg');
             const container = document.getElementById('bracket-board');
             if (!svg || !container) return;
+
+            // Fijamos dimensiones exactas y viewBox para evitar recorte (clipping) de navegadores al hacer zoom
+            const scrollW = container.scrollWidth;
+            const scrollH = container.scrollHeight;
+            svg.setAttribute('width', scrollW);
+            svg.setAttribute('height', scrollH);
+            svg.setAttribute('viewBox', `0 0 ${scrollW} ${scrollH}`);
 
             svg.innerHTML = '';
 
