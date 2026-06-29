@@ -609,17 +609,11 @@
                     path.setAttribute('data-source', sourceId);
                     path.setAttribute('data-target', targetId);
                     
+                    // Aseguramos que la linea sea visible forzando dashoffset 0 por si la animacion falla en curvas invertidas
+                    path.style.strokeDasharray = 'none';
+                    path.style.strokeDashoffset = '0';
+                    
                     svg.appendChild(path);
-                    
-                    // Sumamos 100px extra para garantizar que el trazado animado nunca se corte antes de llegar al final
-                    const length = path.getTotalLength() + 100;
-                    path.style.strokeDasharray = length;
-                    path.style.strokeDashoffset = length;
-                    
-                    // Trigger draw animation
-                    setTimeout(() => {
-                        path.style.strokeDashoffset = '0';
-                    }, 50);
                 });
             });
         }

@@ -455,7 +455,7 @@
         }
 
         .svg-line {
-            transition: stroke 0.3s, stroke-width 0.3s, stroke-dashoffset 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: stroke 0.3s, stroke-width 0.3s;
         }
 
         .svg-line.highlight-path {
