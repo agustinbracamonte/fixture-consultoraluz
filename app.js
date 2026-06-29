@@ -678,8 +678,13 @@
         // Tabs Móviles
         window.scrollToColumn = function(index) {
             const columns = document.querySelectorAll('.column');
-            if (columns[index]) {
-                columns[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            const scrollArea = document.getElementById('scroll-area');
+            if (columns[index] && scrollArea) {
+                const col = columns[index];
+                scrollArea.scrollTo({
+                    left: col.offsetLeft - (scrollArea.clientWidth / 2) + (col.clientWidth / 2),
+                    behavior: 'smooth'
+                });
             }
         };
 
@@ -695,7 +700,15 @@
                         if (index !== -1 && tabs[index]) {
                             tabs.forEach(t => t.classList.remove('active'));
                             tabs[index].classList.add('active');
-                            tabs[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                            
+                            const tab = tabs[index];
+                            const nav = document.getElementById('mobile-tabs');
+                            if (nav) {
+                                nav.scrollTo({
+                                    left: tab.offsetLeft - (nav.clientWidth / 2) + (tab.clientWidth / 2),
+                                    behavior: 'smooth'
+                                });
+                            }
                         }
                     }
                 });
