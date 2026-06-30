@@ -3,16 +3,16 @@
         
         // Dieciseisavos de Final (Ronda de 32)
         const initialMatches = {
-            1: { teamA: { name: 'Alemania', flag: '🇩🇪' }, teamB: { name: 'Paraguay', flag: '🇵🇾' }, isoDate: '2026-06-29T17:30:00-03:00', venue: 'Boston' },
+            1: { teamA: { name: 'Alemania', flag: '🇩🇪' }, teamB: { name: 'Paraguay', flag: '🇵🇾' }, isoDate: '2026-06-29T17:30:00-03:00', venue: 'Boston', scoreA: '1', scoreB: '1', penWinner: 'B', isFinished: true },
             2: { teamA: { name: 'Francia', flag: '🇫🇷' }, teamB: { name: 'Suecia', flag: '🇸🇪' }, isoDate: '2026-06-30T18:00:00-03:00', venue: 'NY/NJ' },
             3: { teamA: { name: 'Sudáfrica', flag: '🇿🇦' }, teamB: { name: 'Canadá', flag: '🇨🇦' }, isoDate: '2026-06-28T16:00:00-03:00', venue: 'Los Ángeles', scoreA: '0', scoreB: '1', isFinished: true },
-            4: { teamA: { name: 'Países Bajos', flag: '🇳🇱' }, teamB: { name: 'Marruecos', flag: '🇲🇦' }, isoDate: '2026-06-29T22:00:00-03:00', venue: 'Monterrey' },
+            4: { teamA: { name: 'Países Bajos', flag: '🇳🇱' }, teamB: { name: 'Marruecos', flag: '🇲🇦' }, isoDate: '2026-06-29T22:00:00-03:00', venue: 'Monterrey', scoreA: '1', scoreB: '1', penWinner: 'B', isFinished: true },
             5: { teamA: { name: 'Portugal', flag: '🇵🇹' }, teamB: { name: 'Croacia', flag: '🇭🇷' }, isoDate: '2026-07-02T17:00:00-03:00', venue: 'Toronto' },
             6: { teamA: { name: 'España', flag: '🇪🇸' }, teamB: { name: 'Austria', flag: '🇦🇹' }, isoDate: '2026-07-02T16:00:00-03:00', venue: 'Los Ángeles' },
             7: { teamA: { name: 'Estados Unidos', flag: '🇺🇸' }, teamB: { name: 'Bosnia y H.', flag: '🇧🇦' }, isoDate: '2026-07-01T21:00:00-03:00', venue: 'Santa Clara' },
             8: { teamA: { name: 'Bélgica', flag: '🇧🇪' }, teamB: { name: 'Senegal', flag: '🇸🇳' }, isoDate: '2026-07-01T17:00:00-03:00', venue: 'Seattle' },
             
-            9: { teamA: { name: 'Brasil', flag: '🇧🇷' }, teamB: { name: 'Japón', flag: '🇯🇵' }, isoDate: '2026-06-29T14:00:00-03:00', venue: 'Houston' },
+            9: { teamA: { name: 'Brasil', flag: '🇧🇷' }, teamB: { name: 'Japón', flag: '🇯🇵' }, isoDate: '2026-06-29T14:00:00-03:00', venue: 'Houston', scoreA: '2', scoreB: '1', isFinished: true },
             10: { teamA: { name: 'Costa de Marfil', flag: '🇨🇮' }, teamB: { name: 'Noruega', flag: '🇳🇴' }, isoDate: '2026-06-30T14:00:00-03:00', venue: 'Dallas' },
             11: { teamA: { name: 'México', flag: '🇲🇽' }, teamB: { name: 'Ecuador', flag: '🇪🇨' }, isoDate: '2026-06-30T21:00:00-03:00', venue: 'CDMX' },
             12: { teamA: { name: 'Inglaterra', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' }, teamB: { name: 'RD Congo', flag: '🇨🇩' }, isoDate: '2026-07-01T13:00:00-03:00', venue: 'Atlanta' },
