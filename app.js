@@ -4,7 +4,7 @@
         // Dieciseisavos de Final (Ronda de 32)
         const initialMatches = {
             1: { teamA: { name: 'Alemania', flag: '🇩🇪' }, teamB: { name: 'Paraguay', flag: '🇵🇾' }, isoDate: '2026-06-29T16:30:00-04:00', venue: 'Boston', scoreA: '1', scoreB: '1', penWinner: 'B', isFinished: true },
-            2: { teamA: { name: 'Francia', flag: '🇫🇷' }, teamB: { name: 'Suecia', flag: '🇸🇪' }, isoDate: '2026-06-30T17:00:00-04:00', venue: 'NY/NJ' },
+            2: { teamA: { name: 'Francia', flag: '🇫🇷' }, teamB: { name: 'Suecia', flag: '🇸🇪' }, isoDate: '2026-06-30T17:00:00-04:00', venue: 'NY/NJ', scoreA: '3', scoreB: '0', isFinished: true },
             3: { teamA: { name: 'Sudáfrica', flag: '🇿🇦' }, teamB: { name: 'Canadá', flag: '🇨🇦' }, isoDate: '2026-06-28T15:00:00-04:00', venue: 'Los Ángeles', scoreA: '0', scoreB: '1', isFinished: true },
             4: { teamA: { name: 'Países Bajos', flag: '🇳🇱' }, teamB: { name: 'Marruecos', flag: '🇲🇦' }, isoDate: '2026-06-29T21:00:00-04:00', venue: 'Monterrey', scoreA: '1', scoreB: '1', penWinner: 'B', isFinished: true },
             5: { teamA: { name: 'Portugal', flag: '🇵🇹' }, teamB: { name: 'Croacia', flag: '🇭🇷' }, isoDate: '2026-07-02T19:00:00-04:00', venue: 'Toronto' },
@@ -13,8 +13,8 @@
             8: { teamA: { name: 'Bélgica', flag: '🇧🇪' }, teamB: { name: 'Senegal', flag: '🇸🇳' }, isoDate: '2026-07-01T16:00:00-04:00', venue: 'Seattle' },
             
             9: { teamA: { name: 'Brasil', flag: '🇧🇷' }, teamB: { name: 'Japón', flag: '🇯🇵' }, isoDate: '2026-06-29T13:00:00-04:00', venue: 'Houston', scoreA: '2', scoreB: '1', isFinished: true },
-            10: { teamA: { name: 'Costa de Marfil', flag: '🇨🇮' }, teamB: { name: 'Noruega', flag: '🇳🇴' }, isoDate: '2026-06-30T13:00:00-04:00', venue: 'Dallas' },
-            11: { teamA: { name: 'México', flag: '🇲🇽' }, teamB: { name: 'Ecuador', flag: '🇪🇨' }, isoDate: '2026-06-30T21:00:00-04:00', venue: 'CDMX' },
+            10: { teamA: { name: 'Costa de Marfil', flag: '🇨🇮' }, teamB: { name: 'Noruega', flag: '🇳🇴' }, isoDate: '2026-06-30T13:00:00-04:00', venue: 'Dallas', scoreA: '1', scoreB: '2', isFinished: true },
+            11: { teamA: { name: 'México', flag: '🇲🇽' }, teamB: { name: 'Ecuador', flag: '🇪🇨' }, isoDate: '2026-06-30T21:00:00-04:00', venue: 'CDMX', scoreA: '2', scoreB: '0', isFinished: true },
             12: { teamA: { name: 'Inglaterra', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' }, teamB: { name: 'RD Congo', flag: '🇨🇩' }, isoDate: '2026-07-01T12:00:00-04:00', venue: 'Atlanta' },
             13: { teamA: { name: 'Argentina', flag: '🇦🇷' }, teamB: { name: 'Cabo Verde', flag: '🇨🇻' }, isoDate: '2026-07-03T18:00:00-04:00', venue: 'Miami' },
             14: { teamA: { name: 'Australia', flag: '🇦🇺' }, teamB: { name: 'Egipto', flag: '🇪🇬' }, isoDate: '2026-07-03T14:00:00-04:00', venue: 'Dallas' },
