@@ -3,46 +3,46 @@
         
         // Dieciseisavos de Final (Ronda de 32)
         const initialMatches = {
-            1: { teamA: { name: 'Alemania', flag: '🇩🇪' }, teamB: { name: 'Paraguay', flag: '🇵🇾' }, isoDate: '2026-06-29T17:30:00-04:00', venue: 'Boston', scoreA: '1', scoreB: '1', penWinner: 'B', isFinished: true },
-            2: { teamA: { name: 'Francia', flag: '🇫🇷' }, teamB: { name: 'Suecia', flag: '🇸🇪' }, isoDate: '2026-06-30T18:00:00-04:00', venue: 'NY/NJ' },
-            3: { teamA: { name: 'Sudáfrica', flag: '🇿🇦' }, teamB: { name: 'Canadá', flag: '🇨🇦' }, isoDate: '2026-06-28T16:00:00-04:00', venue: 'Los Ángeles', scoreA: '0', scoreB: '1', isFinished: true },
-            4: { teamA: { name: 'Países Bajos', flag: '🇳🇱' }, teamB: { name: 'Marruecos', flag: '🇲🇦' }, isoDate: '2026-06-29T22:00:00-04:00', venue: 'Monterrey', scoreA: '1', scoreB: '1', penWinner: 'B', isFinished: true },
-            5: { teamA: { name: 'Portugal', flag: '🇵🇹' }, teamB: { name: 'Croacia', flag: '🇭🇷' }, isoDate: '2026-07-02T17:00:00-04:00', venue: 'Toronto' },
-            6: { teamA: { name: 'España', flag: '🇪🇸' }, teamB: { name: 'Austria', flag: '🇦🇹' }, isoDate: '2026-07-02T16:00:00-04:00', venue: 'Los Ángeles' },
-            7: { teamA: { name: 'Estados Unidos', flag: '🇺🇸' }, teamB: { name: 'Bosnia y H.', flag: '🇧🇦' }, isoDate: '2026-07-01T21:00:00-04:00', venue: 'Santa Clara' },
-            8: { teamA: { name: 'Bélgica', flag: '🇧🇪' }, teamB: { name: 'Senegal', flag: '🇸🇳' }, isoDate: '2026-07-01T17:00:00-04:00', venue: 'Seattle' },
+            1: { teamA: { name: 'Alemania', flag: '🇩🇪' }, teamB: { name: 'Paraguay', flag: '🇵🇾' }, isoDate: '2026-06-29T16:30:00-04:00', venue: 'Boston', scoreA: '1', scoreB: '1', penWinner: 'B', isFinished: true },
+            2: { teamA: { name: 'Francia', flag: '🇫🇷' }, teamB: { name: 'Suecia', flag: '🇸🇪' }, isoDate: '2026-06-30T17:00:00-04:00', venue: 'NY/NJ' },
+            3: { teamA: { name: 'Sudáfrica', flag: '🇿🇦' }, teamB: { name: 'Canadá', flag: '🇨🇦' }, isoDate: '2026-06-28T15:00:00-04:00', venue: 'Los Ángeles', scoreA: '0', scoreB: '1', isFinished: true },
+            4: { teamA: { name: 'Países Bajos', flag: '🇳🇱' }, teamB: { name: 'Marruecos', flag: '🇲🇦' }, isoDate: '2026-06-29T21:00:00-04:00', venue: 'Monterrey', scoreA: '1', scoreB: '1', penWinner: 'B', isFinished: true },
+            5: { teamA: { name: 'Portugal', flag: '🇵🇹' }, teamB: { name: 'Croacia', flag: '🇭🇷' }, isoDate: '2026-07-02T19:00:00-04:00', venue: 'Toronto' },
+            6: { teamA: { name: 'España', flag: '🇪🇸' }, teamB: { name: 'Austria', flag: '🇦🇹' }, isoDate: '2026-07-02T15:00:00-04:00', venue: 'Los Ángeles' },
+            7: { teamA: { name: 'Estados Unidos', flag: '🇺🇸' }, teamB: { name: 'Bosnia y H.', flag: '🇧🇦' }, isoDate: '2026-07-01T20:00:00-04:00', venue: 'Santa Clara' },
+            8: { teamA: { name: 'Bélgica', flag: '🇧🇪' }, teamB: { name: 'Senegal', flag: '🇸🇳' }, isoDate: '2026-07-01T16:00:00-04:00', venue: 'Seattle' },
             
-            9: { teamA: { name: 'Brasil', flag: '🇧🇷' }, teamB: { name: 'Japón', flag: '🇯🇵' }, isoDate: '2026-06-29T14:00:00-04:00', venue: 'Houston', scoreA: '2', scoreB: '1', isFinished: true },
-            10: { teamA: { name: 'Costa de Marfil', flag: '🇨🇮' }, teamB: { name: 'Noruega', flag: '🇳🇴' }, isoDate: '2026-06-30T14:00:00-04:00', venue: 'Dallas' },
+            9: { teamA: { name: 'Brasil', flag: '🇧🇷' }, teamB: { name: 'Japón', flag: '🇯🇵' }, isoDate: '2026-06-29T13:00:00-04:00', venue: 'Houston', scoreA: '2', scoreB: '1', isFinished: true },
+            10: { teamA: { name: 'Costa de Marfil', flag: '🇨🇮' }, teamB: { name: 'Noruega', flag: '🇳🇴' }, isoDate: '2026-06-30T13:00:00-04:00', venue: 'Dallas' },
             11: { teamA: { name: 'México', flag: '🇲🇽' }, teamB: { name: 'Ecuador', flag: '🇪🇨' }, isoDate: '2026-06-30T21:00:00-04:00', venue: 'CDMX' },
-            12: { teamA: { name: 'Inglaterra', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' }, teamB: { name: 'RD Congo', flag: '🇨🇩' }, isoDate: '2026-07-01T13:00:00-04:00', venue: 'Atlanta' },
-            13: { teamA: { name: 'Argentina', flag: '🇦🇷' }, teamB: { name: 'Cabo Verde', flag: '🇨🇻' }, isoDate: '2026-07-03T16:00:00-04:00', venue: 'Miami' },
-            14: { teamA: { name: 'Australia', flag: '🇦🇺' }, teamB: { name: 'Egipto', flag: '🇪🇬' }, isoDate: '2026-07-03T13:00:00-04:00', venue: 'Dallas' },
-            15: { teamA: { name: 'Suiza', flag: '🇨🇭' }, teamB: { name: 'Irán', flag: '🇮🇷' }, isoDate: '2026-07-02T00:00:00-04:00', venue: 'Vancouver' },
-            16: { teamA: { name: 'Colombia', flag: '🇨🇴' }, teamB: { name: 'Ghana', flag: '🇬🇭' }, isoDate: '2026-07-03T20:30:00-04:00', venue: 'Kansas City' },
+            12: { teamA: { name: 'Inglaterra', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' }, teamB: { name: 'RD Congo', flag: '🇨🇩' }, isoDate: '2026-07-01T12:00:00-04:00', venue: 'Atlanta' },
+            13: { teamA: { name: 'Argentina', flag: '🇦🇷' }, teamB: { name: 'Cabo Verde', flag: '🇨🇻' }, isoDate: '2026-07-03T18:00:00-04:00', venue: 'Miami' },
+            14: { teamA: { name: 'Australia', flag: '🇦🇺' }, teamB: { name: 'Egipto', flag: '🇪🇬' }, isoDate: '2026-07-03T14:00:00-04:00', venue: 'Dallas' },
+            15: { teamA: { name: 'Suiza', flag: '🇨🇭' }, teamB: { name: 'Irán', flag: '🇮🇷' }, isoDate: '2026-07-02T23:00:00-04:00', venue: 'Vancouver' },
+            16: { teamA: { name: 'Colombia', flag: '🇨🇴' }, teamB: { name: 'Ghana', flag: '🇬🇭' }, isoDate: '2026-07-03T21:30:00-04:00', venue: 'Kansas City' },
         };
 
         // Flujo del Torneo: Octavos a Final (Con fechas y estadios exactos)
         const matchFlow = {
-            17: { sourceA: 1, sourceB: 2, title: 'Octavos de Final', isoDate: '2026-07-04T14:00:00-04:00', venue: 'Houston' },
-            18: { sourceA: 3, sourceB: 4, title: 'Octavos de Final', isoDate: '2026-07-04T18:00:00-04:00', venue: 'Filadelfia' },
-            19: { sourceA: 5, sourceB: 6, title: 'Octavos de Final', isoDate: '2026-07-05T17:00:00-04:00', venue: 'NY/NJ' },
-            20: { sourceA: 7, sourceB: 8, title: 'Octavos de Final', isoDate: '2026-07-05T21:00:00-04:00', venue: 'CDMX' },
-            21: { sourceA: 9, sourceB: 10, title: 'Octavos de Final', isoDate: '2026-07-06T16:00:00-04:00', venue: 'Dallas' },
-            22: { sourceA: 11, sourceB: 12, title: 'Octavos de Final', isoDate: '2026-07-06T21:00:00-04:00', venue: 'Seattle' },
-            23: { sourceA: 13, sourceB: 14, title: 'Octavos de Final', isoDate: '2026-07-07T13:00:00-04:00', venue: 'Atlanta' },
-            24: { sourceA: 15, sourceB: 16, title: 'Octavos de Final', isoDate: '2026-07-07T16:00:00-04:00', venue: 'Vancouver' },
+            17: { sourceA: 1, sourceB: 2, title: 'Octavos de Final', isoDate: '2026-07-04T12:00:00-04:00', venue: 'Houston' },
+            18: { sourceA: 3, sourceB: 4, title: 'Octavos de Final', isoDate: '2026-07-04T17:00:00-04:00', venue: 'Filadelfia' },
+            19: { sourceA: 5, sourceB: 6, title: 'Octavos de Final', isoDate: '2026-07-05T16:00:00-04:00', venue: 'NY/NJ' },
+            20: { sourceA: 7, sourceB: 8, title: 'Octavos de Final', isoDate: '2026-07-05T20:00:00-04:00', venue: 'CDMX' },
+            21: { sourceA: 9, sourceB: 10, title: 'Octavos de Final', isoDate: '2026-07-06T14:00:00-04:00', venue: 'Dallas' },
+            22: { sourceA: 11, sourceB: 12, title: 'Octavos de Final', isoDate: '2026-07-06T17:00:00-04:00', venue: 'Seattle' },
+            23: { sourceA: 13, sourceB: 14, title: 'Octavos de Final', isoDate: '2026-07-07T12:00:00-04:00', venue: 'Atlanta' },
+            24: { sourceA: 15, sourceB: 16, title: 'Octavos de Final', isoDate: '2026-07-07T13:00:00-04:00', venue: 'Vancouver' },
             
-            25: { sourceA: 17, sourceB: 18, title: 'Cuartos de Final', isoDate: '2026-07-09T17:00:00-04:00', venue: 'Boston' },
-            26: { sourceA: 19, sourceB: 20, title: 'Cuartos de Final', isoDate: '2026-07-10T16:00:00-04:00', venue: 'Los Ángeles' },
-            27: { sourceA: 21, sourceB: 22, title: 'Cuartos de Final', isoDate: '2026-07-11T18:00:00-04:00', venue: 'Miami' },
-            28: { sourceA: 23, sourceB: 24, title: 'Cuartos de Final', isoDate: '2026-07-11T22:00:00-04:00', venue: 'Kansas City' },
+            25: { sourceA: 17, sourceB: 18, title: 'Cuartos de Final', isoDate: '2026-07-09T16:00:00-04:00', venue: 'Boston' },
+            26: { sourceA: 19, sourceB: 20, title: 'Cuartos de Final', isoDate: '2026-07-10T12:00:00-04:00', venue: 'Los Ángeles' },
+            27: { sourceA: 21, sourceB: 22, title: 'Cuartos de Final', isoDate: '2026-07-11T17:00:00-04:00', venue: 'Miami' },
+            28: { sourceA: 23, sourceB: 24, title: 'Cuartos de Final', isoDate: '2026-07-11T20:00:00-04:00', venue: 'Kansas City' },
             
-            29: { sourceA: 25, sourceB: 26, title: 'Semifinales', isoDate: '2026-07-14T16:00:00-04:00', venue: 'Dallas' },
-            30: { sourceA: 27, sourceB: 28, title: 'Semifinales', isoDate: '2026-07-15T16:00:00-04:00', venue: 'Atlanta' },
+            29: { sourceA: 25, sourceB: 26, title: 'Semifinales', isoDate: '2026-07-14T14:00:00-04:00', venue: 'Dallas' },
+            30: { sourceA: 27, sourceB: 28, title: 'Semifinales', isoDate: '2026-07-15T15:00:00-04:00', venue: 'Atlanta' },
             
-            31: { sourceA: 29, sourceB: 30, title: 'GRAN FINAL', isoDate: '2026-07-19T16:00:00-04:00', venue: 'NY/NJ' },
-            32: { sourceA: 29, sourceB: 30, title: 'Tercer Puesto', isoDate: '2026-07-18T18:00:00-04:00', venue: 'Miami', isLosers: true }
+            31: { sourceA: 29, sourceB: 30, title: 'GRAN FINAL', isoDate: '2026-07-19T15:00:00-04:00', venue: 'NY/NJ' },
+            32: { sourceA: 29, sourceB: 30, title: 'Tercer Puesto', isoDate: '2026-07-18T17:00:00-04:00', venue: 'Miami', isLosers: true }
         };
 
         const layoutColumnsDesktop = [
