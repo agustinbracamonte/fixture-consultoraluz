@@ -9,13 +9,13 @@
             4: { teamA: { name: 'Países Bajos', flag: '🇳🇱' }, teamB: { name: 'Marruecos', flag: '🇲🇦' }, isoDate: '2026-06-29T21:00:00-04:00', venue: 'Monterrey', scoreA: '1', scoreB: '1', penWinner: 'B', isFinished: true },
             5: { teamA: { name: 'Portugal', flag: '🇵🇹' }, teamB: { name: 'Croacia', flag: '🇭🇷' }, isoDate: '2026-07-02T19:00:00-04:00', venue: 'Toronto' },
             6: { teamA: { name: 'España', flag: '🇪🇸' }, teamB: { name: 'Austria', flag: '🇦🇹' }, isoDate: '2026-07-02T15:00:00-04:00', venue: 'Los Ángeles' },
-            7: { teamA: { name: 'Estados Unidos', flag: '🇺🇸' }, teamB: { name: 'Bosnia y H.', flag: '🇧🇦' }, isoDate: '2026-07-01T20:00:00-04:00', venue: 'Santa Clara' },
-            8: { teamA: { name: 'Bélgica', flag: '🇧🇪' }, teamB: { name: 'Senegal', flag: '🇸🇳' }, isoDate: '2026-07-01T16:00:00-04:00', venue: 'Seattle' },
+            7: { teamA: { name: 'Estados Unidos', flag: '🇺🇸' }, teamB: { name: 'Bosnia y H.', flag: '🇧🇦' }, isoDate: '2026-07-01T20:00:00-04:00', venue: 'Santa Clara', scoreA: '2', scoreB: '0', isFinished: true },
+            8: { teamA: { name: 'Bélgica', flag: '🇧🇪' }, teamB: { name: 'Senegal', flag: '🇸🇳' }, isoDate: '2026-07-01T16:00:00-04:00', venue: 'Seattle', scoreA: '3', scoreB: '2', isFinished: true },
             
             9: { teamA: { name: 'Brasil', flag: '🇧🇷' }, teamB: { name: 'Japón', flag: '🇯🇵' }, isoDate: '2026-06-29T13:00:00-04:00', venue: 'Houston', scoreA: '2', scoreB: '1', isFinished: true },
             10: { teamA: { name: 'Costa de Marfil', flag: '🇨🇮' }, teamB: { name: 'Noruega', flag: '🇳🇴' }, isoDate: '2026-06-30T13:00:00-04:00', venue: 'Dallas', scoreA: '1', scoreB: '2', isFinished: true },
             11: { teamA: { name: 'México', flag: '🇲🇽' }, teamB: { name: 'Ecuador', flag: '🇪🇨' }, isoDate: '2026-06-30T21:00:00-04:00', venue: 'CDMX', scoreA: '2', scoreB: '0', isFinished: true },
-            12: { teamA: { name: 'Inglaterra', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' }, teamB: { name: 'RD Congo', flag: '🇨🇩' }, isoDate: '2026-07-01T12:00:00-04:00', venue: 'Atlanta' },
+            12: { teamA: { name: 'Inglaterra', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' }, teamB: { name: 'RD Congo', flag: '🇨🇩' }, isoDate: '2026-07-01T12:00:00-04:00', venue: 'Atlanta', scoreA: '2', scoreB: '1', isFinished: true },
             13: { teamA: { name: 'Argentina', flag: '🇦🇷' }, teamB: { name: 'Cabo Verde', flag: '🇨🇻' }, isoDate: '2026-07-03T18:00:00-04:00', venue: 'Miami' },
             14: { teamA: { name: 'Australia', flag: '🇦🇺' }, teamB: { name: 'Egipto', flag: '🇪🇬' }, isoDate: '2026-07-03T14:00:00-04:00', venue: 'Dallas' },
             15: { teamA: { name: 'Suiza', flag: '🇨🇭' }, teamB: { name: 'Irán', flag: '🇮🇷' }, isoDate: '2026-07-02T23:00:00-04:00', venue: 'Vancouver' },
@@ -522,9 +522,12 @@
                     const card = document.getElementById(`match-${item}`);
                     if (!card) return;
 
-                    const scoreA = state.scores[`m${item}a`] !== undefined ? state.scores[`m${item}a`] : '';
-                    const scoreB = state.scores[`m${item}b`] !== undefined ? state.scores[`m${item}b`] : '';
-                    const penWinner = state.penalties[`m${item}`];
+                    let matchData = item <= 16 ? initialMatches[item] : matchFlow[item];
+                    let isFinished = matchData && matchData.isFinished === true;
+
+                    const scoreA = isFinished ? matchData.scoreA : (state.scores[`m${item}a`] !== undefined ? state.scores[`m${item}a`] : '');
+                    const scoreB = isFinished ? matchData.scoreB : (state.scores[`m${item}b`] !== undefined ? state.scores[`m${item}b`] : '');
+                    const penWinner = isFinished ? matchData.penWinner : state.penalties[`m${item}`];
                     const isTie = (scoreA !== '' && scoreB !== '' && scoreA === scoreB);
 
                     // 1. Actualizar los selectores de equipo (por si cambiaron por clasificación)
